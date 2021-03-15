@@ -18,7 +18,7 @@ public class RotationMechanics : MonoBehaviour
     void Update()
     {
         mouseLocation = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-        relPos = mouseLocation - new Vector2(tm.position.x, tm.position,y)
+        relPos = mouseLocation - new Vector2(tm.position.x, tm.position.y);
         angle = Mathf.Atan2(relPos.y, relPos.x) * Mathf.Rad2Deg;
         tm.rotation = Quaternion.Euler(0,0,angle);
     }

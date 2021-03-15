@@ -17,9 +17,9 @@ public class MovementMechanics : MonoBehaviour
     void FixedUpdate()
     {
         movement.x = Input.GetAxis("Horizontal");
-        movement.y = Input.GetAxis("Vertical");\
-        rb.velocity = new Vector(
+        movement.y = Input.GetAxis("Vertical");
+        rb.velocity = new Vector2(
             movement.x*speedMultiplier,
-            movement.y*speedMultiplier);jj
+            movement.y*speedMultiplier);
     }
 }

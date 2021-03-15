@@ -15,6 +15,6 @@ public class CameraStabilizer : MonoBehaviour
     // Update is called once per frame
     void LateUpdate()
     {
-        tm.rotation = StartRotation
+        tm.rotation = StartRotation;
     }
 }
