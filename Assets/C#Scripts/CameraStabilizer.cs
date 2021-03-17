@@ -5,16 +5,18 @@ using UnityEngine;
 public class CameraStabilizer : MonoBehaviour
 {
     private Transform tm;
+    public Transform otherTm;
     private Quaternion StartRotation;
     void Awake()
     {
         tm = GetComponent<Transform>();
-        StartRotation = tm.rotation;
     }
 
     // Update is called once per frame
     void LateUpdate()
     {
-        tm.rotation = StartRotation;
+        tm.position = new Vector3(otherTm.position.x,
+        otherTm.position.y,
+        tm.position.z);
     }
 }

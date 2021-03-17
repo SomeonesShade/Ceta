@@ -7,7 +7,7 @@ public class BodyMechanics : MonoBehaviour
     public int maxHealth;
     public int health;
     // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
         health = maxHealth;
     }
@@ -15,9 +15,9 @@ public class BodyMechanics : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(health >= 0)
+        if(health <= 0)
         {
-            Destroy(this);
+            Destroy(gameObject);
         }
     }
     public void Damage(int dmg)

@@ -6,20 +6,22 @@ public class ShootingMechanics : MonoBehaviour
 {
     public Transform firePoint;
     public GameObject bulletPrefab;
-
     public float bulletForce;
+    public float delay;
+    
+    private bool wait;
     // Start is called before the first frame update
     void Start()
     {
-        
+        wait = false;
     }
 
     // Update is called once per frame
     void Update()
     {
-        if(Input.GetButton("Fire1"))
+        if(Input.GetButton("Fire1") && wait == false)
         {
-            Shoot();
+            StartCoroutine(Delay(delay));
         }
     }
     void Shoot()
@@ -32,5 +34,13 @@ public class ShootingMechanics : MonoBehaviour
         rb.AddForce(
             firePoint.right * bulletForce,
             ForceMode2D.Impulse);
+    }
+    IEnumerator Delay(float dy)
+    {
+        Shoot();
+        wait = true;
+        yield return new WaitForSeconds(dy);
+        wait = false;
+        
     }
 }
