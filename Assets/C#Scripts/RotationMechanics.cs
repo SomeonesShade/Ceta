@@ -15,7 +15,7 @@ public class RotationMechanics : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    void LateUpdate()
     {
         mouseLocation = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         relPos = mouseLocation - new Vector2(tm.position.x, tm.position.y);

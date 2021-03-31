@@ -9,6 +9,11 @@ public class ShootingMechanics : MonoBehaviour
     public float bulletForce;
     public float delay;
     
+    public int bulletDamage;
+    public float bulletDelayHit;
+    public int bulletPierce;
+    public float bulletLifetime;
+    
     private bool wait;
     // Start is called before the first frame update
     void Start()
@@ -34,6 +39,11 @@ public class ShootingMechanics : MonoBehaviour
         rb.AddForce(
             firePoint.right * bulletForce,
             ForceMode2D.Impulse);
+        BulletMechanics bm = bullet.GetComponent<BulletMechanics>();
+        bm.damage = bulletDamage;
+        bm.delayHit = bulletDelayHit;
+        bm.pierce = bulletPierce;
+        bm.lifetime = bulletLifetime;
     }
     IEnumerator Delay(float dy)
     {

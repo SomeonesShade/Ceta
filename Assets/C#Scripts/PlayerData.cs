@@ -9,23 +9,22 @@ public class PlayerData : MonoBehaviour
     private MovementMechanics MM;
     private ShootingMechanics SM;
     
-    [Range(0,7)] public int Damage;
-    [Range(0,7)] public int Pierce;
-    [Range(0,7)] public int Health;
-    [Range(0,7)] public int MovementSpeed;
-    [Range(0,7)] public int BulletSpeed;
+    public int Health;
+    public float MovementSpeed;
+    public int Pierce;
+    public int Damage;
+    public float BulletSpeed;
     // Start is called before the first frame update
     void Start()
     {
         BDM = GetComponent<BodyMechanics>();
-        BTM = GetComponent<BulletMechanics>();
         MM = GetComponent<MovementMechanics>();
-        SM = GetComponent<ShootingMechanics>();
     }
 
     // Update is called once per frame
-    void Update()
+    void LateUpdate()
     {
-        
+        Health = BDM.health;
+        MovementSpeed = MM.speedMultiplier;
     }
 }
