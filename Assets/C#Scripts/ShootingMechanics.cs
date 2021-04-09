@@ -6,13 +6,16 @@ public class ShootingMechanics : MonoBehaviour
 {
     public Transform firePoint;
     public GameObject bulletPrefab;
+    //absolutehell
+    [Header("Variables")]
     public float bulletForce;
     public float delay;
-    
-    public int bulletDamage;
+    [Header("BulletProperties")]
     public float bulletDelayHit;
-    public int bulletPierce;
     public float bulletLifetime;
+    public float bulletImpactForce;
+    public int bulletDamage;
+    public int bulletPierce;
     
     private bool wait;
     // Start is called before the first frame update
@@ -38,12 +41,14 @@ public class ShootingMechanics : MonoBehaviour
         Rigidbody2D rb = bullet.GetComponent<Rigidbody2D>();
         rb.AddForce(
             firePoint.right * bulletForce,
-            ForceMode2D.Impulse);
+            ForceMode2D.Impulse
+        );
         BulletMechanics bm = bullet.GetComponent<BulletMechanics>();
         bm.damage = bulletDamage;
         bm.delayHit = bulletDelayHit;
         bm.pierce = bulletPierce;
         bm.lifetime = bulletLifetime;
+        bm.impactForce = bulletImpactForce;
     }
     IEnumerator Delay(float dy)
     {
@@ -51,6 +56,5 @@ public class ShootingMechanics : MonoBehaviour
         wait = true;
         yield return new WaitForSeconds(dy);
         wait = false;
-        
     }
 }

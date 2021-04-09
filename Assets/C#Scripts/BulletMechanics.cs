@@ -8,11 +8,15 @@ public class BulletMechanics : MonoBehaviour
     public float delayHit;
     public int pierce;
     public float lifetime;
+    public float impactForce;
 
     private BodyMechanics BM;
+    private Rigidbody2D rb;
+    private Transform tr;
     // Start is called before the first frame update
     void Start()
     {
+        tr = GetComponent<Transform>();
         Destroy(gameObject, lifetime);
     }
 
@@ -28,15 +32,26 @@ public class BulletMechanics : MonoBehaviour
     {
         if (other.tag != "Wall")
         {
-            if(other.tag == "Hurtable")
+            if (other.tag != "Bullet" && other.tag != "Player" && other.tag != "Barrel")
             {
-                BM = other.GetComponent<BodyMechanics>();
-                BM.Damage(damage);
+                if(other.tag == "Hurtable")
+                {
+                    BM = other.GetComponent<BodyMechanics>();
+                    BM.Damage(damage);
+                }
+                rb = other.GetComponent<Rigidbody2D>();
+                Push(rb);
             }
         }
         else
         {
             Destroy(gameObject);
         }
+    }
+    private void Push(Rigidbody2D Rb)
+    {
+        Rb.AddForce(
+            tr.right * impactForce,
+            ForceMode2D.Impulse);
     }
 }
