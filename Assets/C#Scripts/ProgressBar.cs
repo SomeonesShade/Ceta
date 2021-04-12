@@ -10,6 +10,9 @@ public class ProgressBar : MonoBehaviour
     public float timeToLevel;
     public int level;
     public int previousLevel;
+    public float[] maxP;
+    private float newEXP;
+    private float sliderValue;
     // Start is called before the first frame update
     void Awake()
     {
@@ -19,27 +22,37 @@ public class ProgressBar : MonoBehaviour
 
     void Start()
     {
-        IncrementProgress(11, 2);
+        sliderValue = slider.value;
     }
     // Update is called once per frame
     void Update()
     {
         Increment();
     }
-    public void IncrementProgress(float newP, float maxP)
+    //AAAAAAAAAAAAAAAAAAA
+    public void IncrementProgress(float newP)
     {
-        targetProgress = slider.value + newP/maxP;
+        newEXP = newP - maxP[level] + (sliderValue * maxP[level]);
+        targetProgress = sliderValue + newP/maxP[level];
         while(targetProgress >= 1)
         {
-            targetProgress -= 1;
+            Debug.Log("activated!" + targetProgress);
             level += 1;
+            targetProgress = newEXP/maxP[level];
+            newEXP = newEXP - maxP[level];
         }
+        Debug.Log(newEXP + maxP[level]);
+    }
+    public int ReportLevel()
+    {
+        return level;
     }
     private void Increment()
     {
+        //Adding Temporary && false to stop the slow increase, and see if its the problem
         if(previousLevel != level)
         {
-            if (slider.value + Time.deltaTime < 1)
+            if (slider.value + Time.deltaTime < 1 && false)
             {
                 slider.value += Time.deltaTime;
             }
@@ -51,13 +64,14 @@ public class ProgressBar : MonoBehaviour
         }
         else
         {
-            if (slider.value + targetProgress/timeToLevel * Time.deltaTime < targetProgress)
+            if (slider.value + targetProgress/timeToLevel * Time.deltaTime < targetProgress  && false)
             {
-            slider.value += targetProgress/timeToLevel * Time.deltaTime;
+                slider.value += targetProgress/timeToLevel * Time.deltaTime;
             }
             else
             {
-            slider.value = targetProgress;
+                slider.value = targetProgress;
+                sliderValue = slider.value;
             }
         }
     }

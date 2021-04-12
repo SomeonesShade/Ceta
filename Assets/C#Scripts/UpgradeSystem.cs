@@ -4,20 +4,32 @@ using UnityEngine;
 
 public class UpgradeSystem : MonoBehaviour
 {
-    [Range(0,7)] public int Damage;
-    [Range(0,7)] public int Pierce;
-    [Range(0,7)] public int Health;
-    [Range(0,7)] public int MovementSpeed;
-    [Range(0,7)] public int BulletSpeed;
+    //Unused ATM, maybe later after dealing with the exp 
+    public float[] Damage;
+    public float[] Pierce;
+    public float[] Health;
+    public float[] MovementSpeed;
+    public float[] BulletSpeed;
+    public int level;
+    public float eXP;
+    private float prevEXP;
+    public GameObject ProgressBar;
+    private ProgressBar pb;
     // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
-        
+        prevEXP = eXP;
+        pb = ProgressBar.GetComponent<ProgressBar>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+        if (0 < eXP - prevEXP)
+        {
+            pb.IncrementProgress(eXP - prevEXP);
+            prevEXP = eXP;
+            level = pb.ReportLevel();
+        }
     }
 }
