@@ -6,6 +6,7 @@ public class ShootingMechanics : MonoBehaviour
 {
     public Transform firePoint;
     public GameObject bulletPrefab;
+    public UpgradeSystem UpS;
     //absolutehell
     [Header("Variables")]
     public float bulletForce;
@@ -14,8 +15,16 @@ public class ShootingMechanics : MonoBehaviour
     public float bulletDelayHit;
     public float bulletLifetime;
     public float bulletImpactForce;
-    public int bulletDamage;
-    public int bulletPierce;
+    public float bulletDamage;
+    public float bulletPierce;
+    [Header("Upgrades")]
+    public float[] Damage;
+    public float[] Pierce;
+    public float[] BulletSpeed;
+
+    private int damage;
+    private int pierce;
+    private int bulletSpeed;
     
     private bool wait;
     // Start is called before the first frame update
@@ -31,7 +40,15 @@ public class ShootingMechanics : MonoBehaviour
         {
             StartCoroutine(Delay(delay));
         }
+        StatUpdate();
     }
+    void StatUpdate()
+    {
+        damage = UpS.damage;
+        pierce = UpS.pierce;
+        bulletSpeed = UpS.bulletSpeed;
+    } 
+
     void Shoot()
     {
         GameObject bullet = Instantiate(
@@ -44,11 +61,12 @@ public class ShootingMechanics : MonoBehaviour
             ForceMode2D.Impulse
         );
         BulletMechanics bm = bullet.GetComponent<BulletMechanics>();
-        bm.damage = bulletDamage;
+        bm.damage = Damage[damage];
         bm.delayHit = bulletDelayHit;
-        bm.pierce = bulletPierce;
+        bm.pierce = Pierce[pierce];
         bm.lifetime = bulletLifetime;
         bm.impactForce = bulletImpactForce;
+        bm.UpS = UpS;
     }
     IEnumerator Delay(float dy)
     {

@@ -4,8 +4,12 @@ using UnityEngine;
 
 public class BodyMechanics : MonoBehaviour
 {
-    public int maxHealth;
-    public int health;
+    public bool isPlayer;
+    public float maxHealth;
+    public float health;
+    public float eXP;
+    public UpgradeSystem UpS;
+    public HealthBar HB;
     // Start is called before the first frame update
     void Awake()
     {
@@ -15,17 +19,25 @@ public class BodyMechanics : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        HB.SetHealth(health,maxHealth);
         if(health <= 0)
         {
             Destroy(gameObject);
         }
     }
-    public void Damage(int dmg)
+    public void Damage(float dmg)
     {
         health -= dmg;
     }
-    public void Heal(int hl)
+    public void Heal(float hl)
     {
         health += hl;
+    }
+    void OnDestroy()
+    {
+        if(UpS != null)
+        {
+            UpS.eXP += eXP;
+        }
     }
 }

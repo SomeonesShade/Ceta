@@ -4,25 +4,17 @@ using UnityEngine;
 
 public class ClassMechanics : MonoBehaviour
 {
-    //public Transform parentTransform;
-    private Transform tm;
-    public bool First;
-    private Transform prevParentTransform;
-    
-    
+    public GameObject Parent;
+    public UpgradeSystem UpS;
+    public ShootingMechanics[] SM;    
     // Start is called before the first frame update
     void Awake()
     {
-        //tm = GetComponent<Transform>();
-        //if(First)
-        //{
-        //    prevParentTransform = parentTransform;
-        //}
-        //else
-        //{
-        //    parentTransform = prevParentTransform;
-        //}
-        //tm.rotation = parentTransform.rotation;
+        UpS = Parent.GetComponent<UpgradeSystem>();
+        for (int i = 0; i < SM.Length; i++)
+        {
+            SM[i].UpS = UpS;
+        }
     }
     // Update is called once per frame
     void Update()

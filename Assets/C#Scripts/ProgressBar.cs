@@ -7,11 +7,13 @@ public class ProgressBar : MonoBehaviour
 {
     private Slider slider;
     private float targetProgress;
+    
     public float timeToLevel;
     public int level;
     public int previousLevel;
     public float[] maxP;
-    private float newEXP;
+    
+    private float remainingEXP;
     private float sliderValue;
     // Start is called before the first frame update
     void Awake()
@@ -29,19 +31,26 @@ public class ProgressBar : MonoBehaviour
     {
         Increment();
     }
-    //AAAAAAAAAAAAAAAAAAA
+    //AAAAAAAAAAAAAAAAAA
     public void IncrementProgress(float newP)
     {
-        newEXP = newP - maxP[level] + (sliderValue * maxP[level]);
+        //total xp - xp going to get taken
+        remainingEXP = newP + (sliderValue * maxP[level]) - maxP[level];
+        //target progress meanwhile is just the percentage of totalexp/exprequiredtolevel
         targetProgress = sliderValue + newP/maxP[level];
-        while(targetProgress >= 1)
+        while(remainingEXP >= 0)
         {
-            Debug.Log("activated!" + targetProgress);
             level += 1;
-            targetProgress = newEXP/maxP[level];
-            newEXP = newEXP - maxP[level];
+            //remaining exp/newlevelexprequired
+            targetProgress = remainingEXP/maxP[level];
+            //remainingexp updated
+            remainingEXP = remainingEXP - maxP[level];
         }
-        Debug.Log(newEXP + maxP[level]);
+        remainingEXP += maxP[level];
+        //ishould update the slider value after it resolves gotcha
+        sliderValue = remainingEXP/maxP[level];
+        Debug.Log("Remaining EXP: " + remainingEXP);
+        Debug.Log("Current SliderValue: " + sliderValue);
     }
     public int ReportLevel()
     {
@@ -49,30 +58,42 @@ public class ProgressBar : MonoBehaviour
     }
     private void Increment()
     {
+        //Note toself need to have a slight delay on computing? idk
         //Adding Temporary && false to stop the slow increase, and see if its the problem
+        //if a level up is needed
         if(previousLevel != level)
         {
-            if (slider.value + Time.deltaTime < 1 && false)
+            //if you are not at maxvalue
+            if (slider.value + Time.deltaTime < 1)
             {
                 slider.value += Time.deltaTime;
-            }
+            } //set to max if you cant add more
             else
             {
                 slider.value = 0;
                 previousLevel += 1;
             }
         }
+        //otherwise slide the thing...
         else
         {
-            if (slider.value + targetProgress/timeToLevel * Time.deltaTime < targetProgress  && false)
+            if (slider.value + targetProgress/timeToLevel * Time.deltaTime < targetProgress)
             {
                 slider.value += targetProgress/timeToLevel * Time.deltaTime;
             }
             else
             {
                 slider.value = targetProgress;
-                sliderValue = slider.value;
             }
         }
+    }
+    public void Reset()
+    {
+        targetProgress = 0;
+        level = 1;
+        previousLevel = 1;
+        remainingEXP = 0;
+        sliderValue = 0;
+        slider.value = 0;
     }
 }

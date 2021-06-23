@@ -4,11 +4,12 @@ using UnityEngine;
 
 public class BulletMechanics : MonoBehaviour
 {
-    public int damage;
     public float delayHit;
-    public int pierce;
     public float lifetime;
     public float impactForce;
+    public float damage;
+    public float pierce;
+    public UpgradeSystem UpS;
 
     private BodyMechanics BM;
     private Rigidbody2D rb;
@@ -37,6 +38,7 @@ public class BulletMechanics : MonoBehaviour
                 if(other.tag == "Hurtable")
                 {
                     BM = other.GetComponent<BodyMechanics>();
+                    BM.UpS = UpS;
                     BM.Damage(damage);
                 }
                 rb = other.GetComponent<Rigidbody2D>();
