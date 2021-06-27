@@ -18,11 +18,11 @@ public class SoulSetter : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        gTM.position = Player.position;
+        gTM.position = Player.position; //move ghost to player
     }
     void OnDestroy()
     {
-        if(Ghost != null)
+        if(Ghost != null) //send the mesage that this is dead
         {
             Ghost.GetComponent<SoulSystem>().isDestroyed = true;
         }

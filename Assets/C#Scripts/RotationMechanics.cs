@@ -17,9 +17,9 @@ public class RotationMechanics : MonoBehaviour
     // Update is called once per frame
     void LateUpdate()
     {
-        mouseLocation = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-        relPos = mouseLocation - new Vector2(tm.position.x, tm.position.y);
-        angle = Mathf.Atan2(relPos.y, relPos.x) * Mathf.Rad2Deg;
-        tm.rotation = Quaternion.Euler(0,0,angle);
+        mouseLocation = Camera.main.ScreenToWorldPoint(Input.mousePosition);//locate the mouse
+        relPos = mouseLocation - new Vector2(tm.position.x, tm.position.y); //relative distance from the mousetoplayer
+        angle = Mathf.Atan2(relPos.y, relPos.x) * Mathf.Rad2Deg;            //no idea, just converts the vector into an angle
+        tm.rotation = Quaternion.Euler(0,0,angle);                          //then converts it into a quaternion and sets the rotation!
     }
 }

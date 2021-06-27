@@ -9,20 +9,20 @@ public class ShootingMechanics : MonoBehaviour
     public UpgradeSystem UpS;
     //absolutehell
     [Header("Variables")]
-    public float bulletForce;
+    public float bulletForce;  //stronger gun and reload time essentially
     public float delay;
     [Header("BulletProperties")]
-    public float bulletDelayHit;
+    public float bulletDelayHit; //some of the other statss
     public float bulletLifetime;
     public float bulletImpactForce;
     public float bulletDamage;
     public float bulletPierce;
     [Header("Upgrades")]
-    public float[] Damage;
-    public float[] Pierce;
-    public float[] BulletSpeed;
+    public float[] Damage;      //list of stats that is used for upgrading
+    public float[] Pierce;      
+    public float[] BulletSpeed; 
 
-    private int damage;
+    private int damage; //local stats to import to the bullet
     private int pierce;
     private int bulletSpeed;
     
@@ -51,17 +51,17 @@ public class ShootingMechanics : MonoBehaviour
 
     void Shoot()
     {
-        GameObject bullet = Instantiate(
+        GameObject bullet = Instantiate(     //make bullet
             bulletPrefab,
             firePoint.position,
             firePoint.rotation);
         Rigidbody2D rb = bullet.GetComponent<Rigidbody2D>();
         rb.AddForce(
-            firePoint.right * bulletForce,
+            firePoint.right * bulletForce, //make it move
             ForceMode2D.Impulse
         );
         BulletMechanics bm = bullet.GetComponent<BulletMechanics>();
-        bm.damage = Damage[damage];
+        bm.damage = Damage[damage]; //set everythinggggg
         bm.delayHit = bulletDelayHit;
         bm.pierce = Pierce[pierce];
         bm.lifetime = bulletLifetime;
@@ -70,7 +70,7 @@ public class ShootingMechanics : MonoBehaviour
     }
     IEnumerator Delay(float dy)
     {
-        Shoot();
+        Shoot(); //reload time lel
         wait = true;
         yield return new WaitForSeconds(dy);
         wait = false;

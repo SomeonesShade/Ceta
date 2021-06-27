@@ -13,16 +13,16 @@ public class BodyMechanics : MonoBehaviour
     // Start is called before the first frame update
     void Awake()
     {
-        health = maxHealth;
+        health = maxHealth; //set the health to max..
     }
 
     // Update is called once per frame
     void Update()
     {
-        HB.SetHealth(health,maxHealth);
-        if(health <= 0)
+        HB.SetHealth(health,maxHealth); //set the health bar the correct values
+        if(health <= 0)                 //ran out of lifepoints?
         {
-            Destroy(gameObject);
+            Destroy(gameObject);//die
         }
     }
     public void Damage(float dmg)
@@ -35,7 +35,7 @@ public class BodyMechanics : MonoBehaviour
     }
     void OnDestroy()
     {
-        if(UpS != null)
+        if(UpS != null) //ok gives out the exp to whoever killed this
         {
             UpS.eXP += eXP;
         }

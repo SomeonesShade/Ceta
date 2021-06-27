@@ -31,14 +31,13 @@ public class UpgradeSystem : MonoBehaviour
     {
         prevEXP = eXP;
         prevLevel = level;
-        
     }
     void Start()
     {
         pb = ProgressBar.GetComponent<ProgressBar>();
     }
 
-    // Update is called once per frame
+    //send the points to the uiupgradedata class
     public int Transmit()
     {
         transmit = UpgradePoints;
@@ -47,7 +46,7 @@ public class UpgradeSystem : MonoBehaviour
     }
     void Update()
     {
-        if (eXP > prevEXP)
+        if (eXP > prevEXP) //dont worry this is calculated as total exp
         {
             pb.IncrementProgress(eXP - prevEXP);
             prevEXP = eXP;
@@ -55,16 +54,16 @@ public class UpgradeSystem : MonoBehaviour
             Point();
         }
     }
-    void Point()
+    void Point() //Level to Points, if the exp has increased
     {
         for (int i = prevLevel; i < level; i++)
         {
-            UpgradePoints += AddPoint[i];
+            UpgradePoints += AddPoint[i]; //loop for every new level gained..
         }
-        prevLevel = level;
+        prevLevel = level; //reset
     }
     public int UpgradeStats(int type)
-    {
+    {//sets the local points we have
         switch (type)
         {
             case 1:

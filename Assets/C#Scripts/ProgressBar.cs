@@ -5,16 +5,16 @@ using UnityEngine.UI;
 
 public class ProgressBar : MonoBehaviour
 {
-    private Slider slider;
-    private float targetProgress;
+    private Slider slider; //the GUI affected
+    private float targetProgress; //remaining_exp/how_many_exp_needed
     
     public float timeToLevel;
-    public int level;
+    public int level; //local level
     public int previousLevel;
-    public float[] maxP;
+    public float[] maxP; //how much exp needs per lvl
     
-    private float remainingEXP;
-    private float sliderValue;
+    private float remainingEXP; //what remains
+    private float sliderValue; //it is a %percentage
     // Start is called before the first frame update
     void Awake()
     {
@@ -46,7 +46,7 @@ public class ProgressBar : MonoBehaviour
             //remainingexp updated
             remainingEXP = remainingEXP - maxP[level];
         }
-        remainingEXP += maxP[level];
+        remainingEXP += maxP[level]; //makes it the actual remaining exp
         //ishould update the slider value after it resolves gotcha
         sliderValue = remainingEXP/maxP[level];
         Debug.Log("Remaining EXP: " + remainingEXP);

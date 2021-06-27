@@ -24,7 +24,7 @@ public class BulletMechanics : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (pierce <= 0)
+        if (pierce <= 0) //cant go through anymore?
         {
             Destroy(gameObject);
         }
@@ -32,16 +32,16 @@ public class BulletMechanics : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D other) 
     {
         if (other.tag != "Wall")
-        {
+        {//basically (our)bullet, player, and the barrel
             if (other.tag != "Bullet" && other.tag != "Player" && other.tag != "Barrel")
-            {
+            {//if its a squishy
                 if(other.tag == "Hurtable")
                 {
-                    BM = other.GetComponent<BodyMechanics>();
-                    BM.UpS = UpS;
-                    BM.Damage(damage);
+                    BM = other.GetComponent<BodyMechanics>(); //get that
+                    BM.UpS = UpS;                             //set ther ups to the player to give exp
+                    BM.Damage(damage);                        //deal damage
                 }
-                rb = other.GetComponent<Rigidbody2D>();
+                rb = other.GetComponent<Rigidbody2D>();       //to enact push lel
                 Push(rb);
             }
         }

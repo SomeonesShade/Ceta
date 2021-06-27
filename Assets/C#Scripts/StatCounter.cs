@@ -21,6 +21,6 @@ public class StatCounter : MonoBehaviour
     }
     public void Updater(int size)
     {
-        Size = size;
+        Size = size; // lets get the data and display
     }
 }

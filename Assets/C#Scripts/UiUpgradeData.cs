@@ -5,9 +5,9 @@ using UnityEngine.UI;
 
 public class UiUpgradeData : MonoBehaviour
 {
-    public GameObject Player;
+    public GameObject Player; //theplayer
     private bool Enable;
-    public GameObject[] Button;
+    public GameObject[] Button; //buttons affected
     public GameObject[] ButtonUI;
     private UpgradeSystem UpS;
     public int localPoints;
@@ -21,19 +21,20 @@ public class UiUpgradeData : MonoBehaviour
     {
         UpS = Player.GetComponent<UpgradeSystem>();
         Enable = false;
-        prevEnb = false;
+        prevEnb = true;
         useColor = deactiColor;
         prevPoints = localPoints;
+        Check();
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (Player != null)
+        if (Player != null) //hey im not dead
         {
             localPoints += UpS.Transmit();
         }
-        if (prevPoints != localPoints)
+        if (prevPoints != localPoints) //if there is a change
         {
             Check();
             prevPoints = localPoints;
@@ -49,12 +50,12 @@ public class UiUpgradeData : MonoBehaviour
         Check();
     }
     public void UiUpdater(int type, int size)
-    {
+    {//first which upgardetype, and the updater updates
         ButtonUI[type].GetComponent<StatCounter>().Updater(size);
     }
     void Check()
     {
-        if (localPoints <= 0)
+        if (localPoints <= 0) //we ran out of point?
         {
             Enable = false;
         }
@@ -62,7 +63,7 @@ public class UiUpgradeData : MonoBehaviour
         {
             Enable = true;
         }
-        if (Enable)
+        if (Enable) //we are activated?
         {
             useColor = actiColor;
         }
@@ -70,7 +71,7 @@ public class UiUpgradeData : MonoBehaviour
         {
             useColor = deactiColor;
         }
-        if (prevEnb != Enable)
+        if (prevEnb != Enable) //there was a recent change?
         {
             for (int i = 0; i < Button.Length; i++)
             {
@@ -81,7 +82,7 @@ public class UiUpgradeData : MonoBehaviour
         prevEnb = Enable;
         
     }
-    public void Reset(GameObject player)
+    public void Reset(GameObject player) //soulstuff reseting
     {
         Player = player;
         UpS = Player.GetComponent<UpgradeSystem>();

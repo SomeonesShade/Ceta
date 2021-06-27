@@ -17,6 +17,6 @@ public class CameraStabilizer : MonoBehaviour
     {
         tm.position = new Vector3(otherTm.position.x,
         otherTm.position.y,
-        tm.position.z);
+        tm.position.z); //sets the position of the camera
     }
 }

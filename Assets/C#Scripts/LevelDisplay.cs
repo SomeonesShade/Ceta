@@ -5,7 +5,7 @@ using TMPro;
 
 public class LevelDisplay : MonoBehaviour
 {
-    private TextMeshProUGUI tmp;
+    private TextMeshProUGUI tmp; //self explanitory just displays the level
     public ProgressBar pb;
     // Start is called before the first frame update
     void Start()

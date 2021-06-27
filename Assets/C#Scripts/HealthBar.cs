@@ -15,7 +15,7 @@ public class HealthBar : MonoBehaviour
     void Start()
     {
         tm = GetComponent<Transform>();
-        tm.SetParent(null);
+        tm.SetParent(null); //im not your child now hehe
     }
 
     // Update is called once per frame
@@ -32,7 +32,7 @@ public class HealthBar : MonoBehaviour
     }
     public void SetHealth(float health, float maxHealth)
     {
-        Slider.gameObject.SetActive(health < maxHealth);
+        Slider.gameObject.SetActive(health < maxHealth); //i should change the appearance somewhere
         Slider.value = health;
         Slider.maxValue = maxHealth;
 

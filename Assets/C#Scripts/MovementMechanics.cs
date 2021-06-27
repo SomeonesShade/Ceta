@@ -20,21 +20,21 @@ public class MovementMechanics : MonoBehaviour
 
     void Update()
     {
-        movement.x = Input.GetAxisRaw("Horizontal");
+        movement.x = Input.GetAxisRaw("Horizontal");    //get the inputs
         movement.y = Input.GetAxisRaw("Vertical");
-        acceleration = speedMultiplier/timeToAccelerate * Time.deltaTime;
-        currentMultiplier += new Vector2 (acceleration,acceleration);
+        acceleration = speedMultiplier/timeToAccelerate * Time.deltaTime;   //accel to maxspeed
+        currentMultiplier += new Vector2 (acceleration,acceleration); //add the accel to the multiplier
         Check();
         prevMovement = movement;
     }
     // Update is called once per frame
     void FixedUpdate()
     {
-        rb.MovePosition(rb.position + movement * currentMultiplier * Time.fixedDeltaTime);
+        rb.MovePosition(rb.position + movement * currentMultiplier * Time.fixedDeltaTime);//then we movin
     }
     void Check()
     {
-        if(currentMultiplier.x > speedMultiplier)
+        if(currentMultiplier.x > speedMultiplier)   //if the multiplier is above maxspeed
         {
             currentMultiplier.x = speedMultiplier;
         }
@@ -42,9 +42,9 @@ public class MovementMechanics : MonoBehaviour
         {
             currentMultiplier.y = speedMultiplier;
         }
-        if (movement.x != prevMovement.x)
+        if (movement.x != prevMovement.x) //did we change direction?
         {
-            currentMultiplier.x = 0f;
+            currentMultiplier.x = 0f; //if so STOP lel
         }
         if (movement.y != prevMovement.y)
         {

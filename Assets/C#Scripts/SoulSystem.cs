@@ -26,11 +26,11 @@ public class SoulSystem : MonoBehaviour
     {
         if(Input.GetKeyDown(KeyCode.R))
         {
-            Restart();
+            Restart(); //self explanitory lel
         }
         if (isDestroyed && Input.GetKeyDown(KeyCode.L))
         {
-            OnRespawn();
+            OnRespawn(); //same
         }
     }
     private void Restart()
@@ -39,14 +39,14 @@ public class SoulSystem : MonoBehaviour
     }
     public void OnRespawn()
     {
-        GameObject Player = Instantiate(
+        GameObject Player = Instantiate( //create the player
             playerPrefab,
             tr.position,
             tr.rotation);
-        UpgradeSet.GetComponent<UiUpgradeData>().Reset(Player);
-        Player.GetComponent<SoulSetter>().Ghost = Ghost;
+        UpgradeSet.GetComponent<UiUpgradeData>().Reset(Player); //reset the upgrade data
+        Player.GetComponent<SoulSetter>().Ghost = Ghost; //set the player to this
         PB = ProgressBar.GetComponent<ProgressBar>();
-        PB.Reset();
-        Player.GetComponent<UpgradeSystem>().ProgressBar = ProgressBar;
+        PB.Reset(); //set the progress bar
+        Player.GetComponent<UpgradeSystem>().ProgressBar = ProgressBar; //aslo set the player to that
     }
 }
