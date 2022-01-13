@@ -2,10 +2,13 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-
+//Related: UpgradeSystem, UI<StatCounter> and SoulSystem
+//This is Complicated, it handles how all UI gets Updated when a stat changes
+//It controls Every Button to be Active when Available, and Changes the UI on each StatCounter
+//Also Changes the Data in UpS Since This Interfaces on How To Upgrade
 public class UiUpgradeData : MonoBehaviour
 {
-    public GameObject Player; //theplayer
+    GameObject Player; //theplayer
     private bool Enable;
     public GameObject[] Button; //buttons affected
     public GameObject[] ButtonUI;
@@ -19,6 +22,7 @@ public class UiUpgradeData : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        Player = GameObject.FindGameObjectWithTag("Player");
         UpS = Player.GetComponent<UpgradeSystem>();
         Enable = false;
         prevEnb = true;
@@ -40,11 +44,12 @@ public class UiUpgradeData : MonoBehaviour
             prevPoints = localPoints;
         }
     }
-    public void Damage()
+    public void Stat(int type)
     {
+        Debug.Log("INVOKED");
         if (Player != null && localPoints != 0)
         {
-            UiUpdater(0, UpS.UpgradeStats(1));
+            UiUpdater(type, UpS.UpgradeStats(type));
             localPoints -= 1;
         }
         Check();
@@ -87,6 +92,13 @@ public class UiUpgradeData : MonoBehaviour
         Player = player;
         UpS = Player.GetComponent<UpgradeSystem>();
         localPoints = 0;
+        int a = 0;
+        foreach (var item in ButtonUI)
+        {
+            UiUpdater(a,0);
+            a++;
+        }
+        Check();
     }
 
 }

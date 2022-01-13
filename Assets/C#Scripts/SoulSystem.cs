@@ -2,7 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-
+//Related: SoulSetter, UpgradeSystem, and UI<ProgressBar, and UiUpgradeData>
+//Main Function is To Handle Death, Respawn and Restarting
+//As an Intermediate To Transfer Object Data (No Null), and To reset ALL values
 public class SoulSystem : MonoBehaviour
 {
     public bool isDestroyed;
@@ -19,6 +21,7 @@ public class SoulSystem : MonoBehaviour
     void Start()
     {
         tr = GetComponent<Transform>();
+        ProgressBar = GameObject.FindGameObjectWithTag("ProgressBar");
     }
 
     // Update is called once per frame
@@ -39,6 +42,7 @@ public class SoulSystem : MonoBehaviour
     }
     public void OnRespawn()
     {
+        isDestroyed = false;
         GameObject Player = Instantiate( //create the player
             playerPrefab,
             tr.position,

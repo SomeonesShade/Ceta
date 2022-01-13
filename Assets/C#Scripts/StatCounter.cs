@@ -2,7 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
-
+//Related: UiUpdater
+//Displays Stats for Each Stat(or Instance) from the Main UiUpdater
 public class StatCounter : MonoBehaviour
 {
     private TextMeshProUGUI tmp;

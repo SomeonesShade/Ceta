@@ -2,7 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
-
+//Related: ProgressBar
+//Displays the Level from ProgressBar
+//Potential Intermediate Variables? idk
 public class LevelDisplay : MonoBehaviour
 {
     private TextMeshProUGUI tmp; //self explanitory just displays the level

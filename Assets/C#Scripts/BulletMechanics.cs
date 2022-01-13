@@ -1,14 +1,13 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+//Related: ShootingMechanics, UpgradeSystem, and BodyMechanics
+//Dictates Bullet Behavior and Properties
+//ShootingMechanics Instantiates the Bullet and there is no local assign
+//Assigns which Ups for the affected Body Mechanics to give EXP
 public class BulletMechanics : MonoBehaviour
 {
-    public float delayHit;
-    public float lifetime;
-    public float impactForce;
-    public float damage;
-    public float pierce;
+    public float delayHit, lifetime, impactForce, damage, pierce;
     public UpgradeSystem UpS;
 
     private BodyMechanics BM;
@@ -35,6 +34,7 @@ public class BulletMechanics : MonoBehaviour
         {//basically (our)bullet, player, and the barrel
             if (other.tag != "Bullet" && other.tag != "Player" && other.tag != "Barrel")
             {//if its a squishy
+                pierce--;
                 if(other.tag == "Hurtable")
                 {
                     BM = other.GetComponent<BodyMechanics>(); //get that

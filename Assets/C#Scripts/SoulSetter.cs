@@ -1,7 +1,8 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+//Related: SoulSystem
+//Notifies When the Player Dies and Positions the Ghost To Be in Position with the Player
 public class SoulSetter : MonoBehaviour
 {
     public GameObject Ghost;
@@ -12,6 +13,7 @@ public class SoulSetter : MonoBehaviour
     void Start()
     {
         Player = GetComponent<Transform>();
+        Ghost = GameObject.FindGameObjectWithTag("Ghost");
         gTM = Ghost.GetComponent<Transform>();
     }
 

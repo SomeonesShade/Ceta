@@ -1,7 +1,10 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+//Related: BulletMechanics, ClassMechanics, DATA, and UpgradeSystem
+//Determines how the Player Shoots
+//Its has a TON of Variables (Please fix) and use DATA
+//Assigns Properties to the bullet, and Determines how the Gun works
 public class ShootingMechanics : MonoBehaviour
 {
     public Transform firePoint;
@@ -15,18 +18,33 @@ public class ShootingMechanics : MonoBehaviour
     public float bulletDelayHit; //some of the other statss
     public float bulletLifetime;
     public float bulletImpactForce;
-    public float bulletDamage;
-    public float bulletPierce;
-    [Header("Upgrades")]
-    public float[] Damage;      //list of stats that is used for upgrading
-    public float[] Pierce;      
-    public float[] BulletSpeed; 
 
-    private int damage; //local stats to import to the bullet
-    private int pierce;
-    private int bulletSpeed;
+    [Header("Adjustments")]
+    public float damageM;
+    public float pierceM;
+    public float bulletSpeedM;
+    public float reloadM;
+
+    
+    float[] Damage;      //list of stats that is used for upgrading
+    float[] Pierce;      
+    float[] BulletSpeed;
+    float[] Reload; 
+
+    int damage; //local stats to import to the bullet
+    int pierce;
+    int bulletSpeed;
     
     private bool wait;
+    void Awake() 
+    {
+        Data_NormalStats DataStats;
+        DataStats = GameObject.FindGameObjectWithTag("DATA").GetComponent<Data_NormalStats>();
+        Damage = DataStats.Damage;
+        Pierce = DataStats.Pierce;
+        BulletSpeed = DataStats.BulletSpeed;
+        Reload = DataStats.Reload;
+    }
     // Start is called before the first frame update
     void Start()
     {

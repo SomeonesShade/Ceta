@@ -1,7 +1,9 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+//Related: Self Contained
+//Handles How the PlayerMoves At All w/ Accel, Speed, Inertia etc.
+//This Should Not be SelfContained, we Need the UPS and DATA for how to change Speed
 public class MovementMechanics : MonoBehaviour
 {
     private Rigidbody2D rb;

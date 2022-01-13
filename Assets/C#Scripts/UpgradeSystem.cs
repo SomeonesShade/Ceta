@@ -1,22 +1,15 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+//Related: ShootingMechanics, ClassMechanics, ClassChange, BodyMechanics, BulletMechanics, SoulSystem, and UI<UiUpgradeData, ProgressBar>
+//The Most Refrenced Class, Handle with Care
+//Handles ALL stat and level data to be used in a lot of Aspects 
 public class UpgradeSystem : MonoBehaviour
 {
     //Unused ATM, maybe later after dealing with the exp 
-    public float[] Damage;
-    public float[] Pierce;
-    public float[] Health;
-    public float[] MovementSpeed;
-    public float[] BulletSpeed;
     public int[] AddPoint;
 
-    public int damage;
-    public int pierce;
-    public int health;
-    public int movementSpeed;
-    public int bulletSpeed;
+    public int damage, pierce, health, movementSpeed, bulletSpeed;
     
     public int level;
     public int UpgradePoints;
@@ -29,6 +22,7 @@ public class UpgradeSystem : MonoBehaviour
     // Start is called before the first frame update
     void Awake()
     {
+        ProgressBar = GameObject.FindGameObjectWithTag("ProgressBar");
         prevEXP = eXP;
         prevLevel = level;
     }
@@ -66,19 +60,19 @@ public class UpgradeSystem : MonoBehaviour
     {//sets the local points we have
         switch (type)
         {
-            case 1:
+            case 0:
                 damage++;
             return damage;
-            case 2:
+            case 1:
                 pierce++;
             return pierce;
-            case 3:
+            case 2:
                 health++;
             return health;
-            case 4:
+            case 3:
                 movementSpeed++;
             return movementSpeed;
-            case 5:
+            case 4:
                 bulletSpeed++;
             return bulletSpeed;
             default:

@@ -2,7 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-
+//Related: SoulSystem, UpgradeSystem, and LevelDisplay
+//This is A Complicated One It handles how the exp data is represented
+//This requires intimate connection with Ups as it needs the Level and EXP to function
 public class ProgressBar : MonoBehaviour
 {
     private Slider slider; //the GUI affected

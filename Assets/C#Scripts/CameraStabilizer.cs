@@ -1,7 +1,10 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+//Related: Self Contained
+//Uses the Ghosts Location To Follow the Player (if not dead)
+//We need the Ghost to maintain Camera View
+//(First Time Intermediate Variables are Useful Here)
 public class CameraStabilizer : MonoBehaviour
 {
     private Transform tm;
@@ -9,6 +12,7 @@ public class CameraStabilizer : MonoBehaviour
     private Quaternion StartRotation;
     void Awake()
     {
+        otherTm = GameObject.FindGameObjectWithTag("Ghost").GetComponent<Transform>();
         tm = GetComponent<Transform>();
     }
 

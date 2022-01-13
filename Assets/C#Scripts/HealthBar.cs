@@ -2,7 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-
+//Related: BodyMechanics
+//Displays the UI of BodyMechanics, But Also...
+//Handles the Position of The MiniBar which is a pain
 public class HealthBar : MonoBehaviour
 {
     Transform tm;
@@ -11,9 +13,11 @@ public class HealthBar : MonoBehaviour
     public Color Low;
     public Color High;
     public Image Image;
+    bool isActive;
     // Start is called before the first frame update
     void Start()
     {
+        isActive = false;
         tm = GetComponent<Transform>();
         tm.SetParent(null); //im not your child now hehe
     }
@@ -32,10 +36,33 @@ public class HealthBar : MonoBehaviour
     }
     public void SetHealth(float health, float maxHealth)
     {
-        Slider.gameObject.SetActive(health < maxHealth); //i should change the appearance somewhere
+        if (health >= maxHealth - 0.1f)
+        {
+            Slider.gameObject.SetActive(false);
+            isActive = false;
+        }
         Slider.value = health;
         Slider.maxValue = maxHealth;
-
         Image.color = Color.Lerp(Low, High, health/maxHealth);
+    }
+    public IEnumerator Activate(float health, float maxHealth, bool isPlayer)
+    {
+        if (isPlayer)
+        {
+            Slider.gameObject.SetActive(health < maxHealth);
+            yield return null;
+        }
+        else
+        {
+            if (!isActive)
+            {
+                isActive = true;
+                Slider.gameObject.SetActive(true);
+                yield return new WaitForSeconds(5);
+                Slider.gameObject.SetActive(false);
+                isActive = false;
+            }
+        }
+        yield return null;
     }
 }

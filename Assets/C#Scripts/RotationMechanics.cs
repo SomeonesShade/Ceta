@@ -1,12 +1,12 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+//Related: Self Contained
+//Interacts ONLY with the Player's Rotation and Mouse Position
 public class RotationMechanics : MonoBehaviour
 {
     private Transform tm;
-    private Vector2 mouseLocation;
-    private Vector2 relPos;
+    private Vector2 mouseLocation, relPos;
     private float angle;
     // Start is called before the first frame update
     void Start()
