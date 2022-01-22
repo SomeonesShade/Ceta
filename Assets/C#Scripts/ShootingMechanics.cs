@@ -40,10 +40,10 @@ public class ShootingMechanics : MonoBehaviour
     {
         Data_NormalStats DataStats;
         DataStats = GameObject.FindGameObjectWithTag("DATA").GetComponent<Data_NormalStats>();
-        Damage = DataStats.Damage;
+        Damage = DataStats.BulletDamage;
         Pierce = DataStats.Pierce;
-        BulletSpeed = DataStats.BulletSpeed;
-        Reload = DataStats.Reload;
+        BulletSpeed = DataStats.OnFireForce;
+        Reload = DataStats.ShootCooldown;
     }
     // Start is called before the first frame update
     void Start()

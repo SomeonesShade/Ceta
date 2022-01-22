@@ -8,8 +8,14 @@ public class UpgradeSystem : MonoBehaviour
 {
     //Unused ATM, maybe later after dealing with the exp 
     public int[] AddPoint;
-
-    public int damage, pierce, health, movementSpeed, bulletSpeed;
+    public int healthRegeneration,
+        maxHealth,
+        bodyDamage,
+        bulletSpeed,
+        pierce,
+        damage,
+        reload,
+        movementSpeed;
     
     public int level;
     public int UpgradePoints;
@@ -61,20 +67,29 @@ public class UpgradeSystem : MonoBehaviour
         switch (type)
         {
             case 0:
-                damage++;
-            return damage;
+                healthRegeneration++;
+            return healthRegeneration;
             case 1:
-                pierce++;
-            return pierce;
+                maxHealth++;
+            return maxHealth;
             case 2:
-                health++;
-            return health;
+                bodyDamage++;
+            return bodyDamage;
             case 3:
-                movementSpeed++;
-            return movementSpeed;
-            case 4:
                 bulletSpeed++;
             return bulletSpeed;
+            case 4:
+                pierce++;
+            return pierce;
+            case 5:
+                damage++;
+            return damage;
+            case 6:
+                reload++;
+            return reload;
+            case 7:
+                movementSpeed++;
+            return movementSpeed;
             default:
                 Debug.Log("ERROR");
             break;

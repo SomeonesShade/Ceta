@@ -6,22 +6,37 @@ using UnityEngine;
 //This Should Not be SelfContained, we Need the UPS and DATA for how to change Speed
 public class MovementMechanics : MonoBehaviour
 {
-    private Rigidbody2D rb;
-    private Vector2 movement;
+    Rigidbody2D rb;
+    Vector2 movement;
     public float speedMultiplier;
     public float timeToAccelerate;
-    private Vector2 currentMultiplier;
-    private Vector2 prevMovement;
-    private float acceleration;
+    public float[] MovementSpeed;
+    UpgradeSystem UpS;
+    int movementspeed;
+    Vector2 currentMultiplier;
+    Vector2 prevMovement;
+    float acceleration;
     // Start is called before the first frame update
+    void Awake()
+    {
+        Data_NormalStats DataStats;
+        DataStats = GameObject.FindGameObjectWithTag("DATA").GetComponent<Data_NormalStats>();
+        MovementSpeed = DataStats.MovementSpeed;
+        UpS = GetComponent<UpgradeSystem>();
+    }
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
         prevMovement = movement;
     }
-
+    void StatUpdate()
+    {
+        movementspeed = UpS.movementSpeed;
+        speedMultiplier = MovementSpeed[movementspeed];
+    }
     void Update()
     {
+        StatUpdate();
         movement.x = Input.GetAxisRaw("Horizontal");    //get the inputs
         movement.y = Input.GetAxisRaw("Vertical");
         acceleration = speedMultiplier/timeToAccelerate * Time.deltaTime;   //accel to maxspeed

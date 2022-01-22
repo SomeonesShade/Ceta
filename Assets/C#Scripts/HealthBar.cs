@@ -35,7 +35,7 @@ public class HealthBar : MonoBehaviour
         }
     }
     public void SetHealth(float health, float maxHealth)
-    {
+    {//Runs in BodyMechanics Update
         if (health >= maxHealth - 0.1f)
         {
             Slider.gameObject.SetActive(false);
@@ -46,7 +46,7 @@ public class HealthBar : MonoBehaviour
         Image.color = Color.Lerp(Low, High, health/maxHealth);
     }
     public IEnumerator Activate(float health, float maxHealth, bool isPlayer)
-    {
+    {//Runs when BodyMechanics signals thatits been dealt damage
         if (isPlayer)
         {
             Slider.gameObject.SetActive(health < maxHealth);

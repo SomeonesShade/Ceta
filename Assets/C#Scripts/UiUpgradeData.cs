@@ -9,16 +9,15 @@ using UnityEngine.UI;
 public class UiUpgradeData : MonoBehaviour
 {
     GameObject Player; //theplayer
-    private bool Enable;
+    bool Enable;
     public GameObject[] Button; //buttons affected
     public GameObject[] ButtonUI;
-    private UpgradeSystem UpS;
+    UpgradeSystem UpS;
     public int localPoints;
-    private bool prevEnb;
-    public Color actiColor;
+    bool prevEnb;
+    public Color[] actiColors;
     public Color deactiColor;
-    private Color useColor;
-    private int prevPoints;
+    int prevPoints;
     // Start is called before the first frame update
     void Start()
     {
@@ -26,7 +25,6 @@ public class UiUpgradeData : MonoBehaviour
         UpS = Player.GetComponent<UpgradeSystem>();
         Enable = false;
         prevEnb = true;
-        useColor = deactiColor;
         prevPoints = localPoints;
         Check();
     }
@@ -58,7 +56,7 @@ public class UiUpgradeData : MonoBehaviour
     {//first which upgardetype, and the updater updates
         ButtonUI[type].GetComponent<StatCounter>().Updater(size);
     }
-    void Check()
+    void Check()//Note change this to change the Saturation Instead
     {
         if (localPoints <= 0) //we ran out of point?
         {
@@ -68,20 +66,12 @@ public class UiUpgradeData : MonoBehaviour
         {
             Enable = true;
         }
-        if (Enable) //we are activated?
-        {
-            useColor = actiColor;
-        }
-        else
-        {
-            useColor = deactiColor;
-        }
         if (prevEnb != Enable) //there was a recent change?
         {
             for (int i = 0; i < Button.Length; i++)
             {
                 Button[i].GetComponent<Button>().enabled = Enable;
-                Button[i].GetComponent<Image>().color = useColor;
+                Button[i].GetComponent<Image>().color = Enable? actiColors[i] : deactiColor;
             }
         }
         prevEnb = Enable;

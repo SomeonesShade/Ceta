@@ -7,11 +7,13 @@ using UnityEngine;
 public class BodyMechanics : MonoBehaviour
 {
     public bool isPlayer;
-    public float maxHealth, health, eXP, ColDmg;
+    public float maxHealth, health, eXP, ColDmg, regenTimer, regenSpeed;
     public UpgradeSystem UpS;
     public HealthBar HB;
     public float[] MaxHealth;
     UpgradeSystem myUps;
+    bool isHurt, isRecentlyHurt, isRegenerating;
+    float regenCooldown;
     // Start is called before the first frame update
     void Awake()
     {
@@ -19,9 +21,10 @@ public class BodyMechanics : MonoBehaviour
         {
             MaxHealth = GameObject.FindGameObjectWithTag("DATA").GetComponent<Data_NormalStats>().MaxHealth;
             myUps = this.gameObject.GetComponent<UpgradeSystem>();
-            maxHealth = MaxHealth[myUps.health];
+            maxHealth = MaxHealth[myUps.maxHealth];
         }
         health = maxHealth; //set the health to max..
+        isRecentlyHurt = false;
     }
     void OnCollisionEnter2D(Collision2D other) 
     {
@@ -52,6 +55,11 @@ public class BodyMechanics : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if(maxHealth - 0.1f > health)
+        {
+            isHurt = true;
+        }
+        Regenerate();
         if (maxHealth < health)
         {
             health = maxHealth;
@@ -59,7 +67,7 @@ public class BodyMechanics : MonoBehaviour
         if (isPlayer)
         {
             float healthpercent = health/maxHealth;
-            maxHealth = MaxHealth[myUps.health];
+            maxHealth = MaxHealth[myUps.maxHealth];
             health = healthpercent * maxHealth;
         }
         HB.SetHealth(health,maxHealth); //set the health bar the correct values
@@ -68,10 +76,33 @@ public class BodyMechanics : MonoBehaviour
             Destroy(gameObject);//die
         }
     }
+    void Regenerate()
+    {
+        if (isHurt)
+        {
+            if (isRecentlyHurt)
+            {
+                isRecentlyHurt = false;
+                regenCooldown = regenTimer;
+            }
+            regenCooldown = (health < maxHealth) ? regenCooldown - Time.deltaTime : 0;
+            if (regenCooldown < 0.1f)
+            {
+                Heal(regenSpeed * Time.deltaTime);
+            }
+        }
+        if (maxHealth <= health)
+        {
+            isHurt = false;
+            isRecentlyHurt = false;
+        }
+    }
     public void Damage(float dmg)
     {
         health -= dmg;
         HB.StartCoroutine(HB.Activate(health,maxHealth,isPlayer));
+        isHurt = true;
+        isRecentlyHurt = true;
     }
     public void Heal(float hl)
     {
