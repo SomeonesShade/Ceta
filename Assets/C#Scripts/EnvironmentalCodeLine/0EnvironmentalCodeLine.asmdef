@@ -1,0 +1,16 @@
+{
+    "name": "0EnvironmentalCodeLine",
+    "rootNamespace": "",
+    "references": [
+        "GUID:efdc34c6c0db0ea40929f82fecee8ac3"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

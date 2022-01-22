@@ -23,7 +23,7 @@ public class BodyMechanics : MonoBehaviour
             myUps = this.gameObject.GetComponent<UpgradeSystem>();
             maxHealth = MaxHealth[myUps.maxHealth];
         }
-        health = maxHealth; //set the health to max..
+        health = maxHealth; //set the health to max...
         isRecentlyHurt = false;
     }
     void OnCollisionEnter2D(Collision2D other) 

@@ -1,0 +1,5 @@
+*
+!*Assets/
+!*Assets/C#Scripts/
+!*Assets/C#Scripts/**
+!.gitignore
