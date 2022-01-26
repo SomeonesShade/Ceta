@@ -31,9 +31,7 @@ public class ShootingMechanics : MonoBehaviour
     float[] BulletSpeed;
     float[] Reload; 
 
-    int damage; //local stats to import to the bullet
-    int pierce;
-    int bulletSpeed;
+    int damage, pierce, bulletSpeed, reload;
     
     private bool wait;
     void Awake() 
@@ -54,17 +52,18 @@ public class ShootingMechanics : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        StatUpdate();
         if(Input.GetButton("Fire1") && wait == false)
         {
-            StartCoroutine(Delay(delay));
+            StartCoroutine(Delay(delay * Reload[reload]));
         }
-        StatUpdate();
     }
     void StatUpdate()
     {
-        damage = UpS.damage;
-        pierce = UpS.pierce;
-        bulletSpeed = UpS.bulletSpeed;
+        reload = UpS.playerStats.reload;
+        damage = UpS.playerStats.damage;
+        pierce = UpS.playerStats.pierce;
+        bulletSpeed = UpS.playerStats.bulletSpeed;
     } 
 
     void Shoot()

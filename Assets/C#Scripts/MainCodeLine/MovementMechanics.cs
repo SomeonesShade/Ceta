@@ -31,7 +31,7 @@ public class MovementMechanics : MonoBehaviour
     }
     void StatUpdate()
     {
-        movementspeed = UpS.movementSpeed;
+        movementspeed = UpS.playerStats.movementSpeed;
         speedMultiplier = MovementSpeed[movementspeed];
     }
     void Update()

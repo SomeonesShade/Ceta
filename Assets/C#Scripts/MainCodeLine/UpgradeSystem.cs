@@ -8,15 +8,7 @@ public class UpgradeSystem : MonoBehaviour
 {
     //Unused ATM, maybe later after dealing with the exp 
     public int[] AddPoint;
-    public int healthRegeneration,
-        maxHealth,
-        bodyDamage,
-        bulletSpeed,
-        pierce,
-        damage,
-        reload,
-        movementSpeed;
-    
+    public PlayerStats playerStats; 
     public int level;
     public int UpgradePoints;
     public float eXP;
@@ -62,38 +54,4 @@ public class UpgradeSystem : MonoBehaviour
         }
         prevLevel = level; //reset
     }
-    public int UpgradeStats(int type)
-    {//sets the local points we have
-        switch (type)
-        {
-            case 0:
-                healthRegeneration++;
-            return healthRegeneration;
-            case 1:
-                maxHealth++;
-            return maxHealth;
-            case 2:
-                bodyDamage++;
-            return bodyDamage;
-            case 3:
-                bulletSpeed++;
-            return bulletSpeed;
-            case 4:
-                pierce++;
-            return pierce;
-            case 5:
-                damage++;
-            return damage;
-            case 6:
-                reload++;
-            return reload;
-            case 7:
-                movementSpeed++;
-            return movementSpeed;
-            default:
-                Debug.Log("ERROR");
-            break;
-        }
-        return 0;
-    } 
 }

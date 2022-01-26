@@ -47,7 +47,8 @@ public class UiUpgradeData : MonoBehaviour
         Debug.Log("INVOKED");
         if (Player != null && localPoints != 0)
         {
-            UiUpdater(type, UpS.UpgradeStats(type));
+            UpS.playerStats.AddValue(type, 1);
+            UiUpdater(type, UpS.playerStats.IntToStat(type));
             localPoints -= 1;
         }
         Check();
@@ -70,6 +71,12 @@ public class UiUpgradeData : MonoBehaviour
         {
             for (int i = 0; i < Button.Length; i++)
             {
+                if(UpS.playerStats.maxCapacity > 6)//hardcode alert, we need a way to deal when adding points back on classchange, and knowing the max
+                {
+                    Button[i].GetComponent<Button>().enabled = false;
+                    Button[i].GetComponent<Image>().color = deactiColor;
+                    continue;
+                }
                 Button[i].GetComponent<Button>().enabled = Enable;
                 Button[i].GetComponent<Image>().color = Enable? actiColors[i] : deactiColor;
             }

@@ -7,10 +7,10 @@ using UnityEngine;
 public class BodyMechanics : MonoBehaviour
 {
     public bool isPlayer;
-    public float maxHealth, health, eXP, ColDmg, regenTimer, regenSpeed;
+    public float maxHealth, health, eXP, colDmg, regenTimer, regenSpeed;
     public UpgradeSystem UpS;
     public HealthBar HB;
-    public float[] MaxHealth;
+    public float[] MaxHealth, HealthCooldown, RegenSpeed, BodyDamage;
     UpgradeSystem myUps;
     bool isHurt, isRecentlyHurt, isRegenerating;
     float regenCooldown;
@@ -20,8 +20,14 @@ public class BodyMechanics : MonoBehaviour
         if (isPlayer)
         {
             MaxHealth = GameObject.FindGameObjectWithTag("DATA").GetComponent<Data_NormalStats>().MaxHealth;
+            HealthCooldown = GameObject.FindGameObjectWithTag("DATA").GetComponent<Data_NormalStats>().RegenerationCooldown;
+            RegenSpeed = GameObject.FindGameObjectWithTag("DATA").GetComponent<Data_NormalStats>().RegenerationSpeed;
+            BodyDamage = GameObject.FindGameObjectWithTag("DATA").GetComponent<Data_NormalStats>().CollisionDamage;
             myUps = this.gameObject.GetComponent<UpgradeSystem>();
-            maxHealth = MaxHealth[myUps.maxHealth];
+            maxHealth = MaxHealth[myUps.playerStats.maxHealth];
+            regenTimer = HealthCooldown[myUps.playerStats.healthRegeneration];
+            regenSpeed = RegenSpeed[myUps.playerStats.healthRegeneration];
+            colDmg = BodyDamage[myUps.playerStats.bodyDamage];
         }
         health = maxHealth; //set the health to max...
         isRecentlyHurt = false;
@@ -45,7 +51,8 @@ public class BodyMechanics : MonoBehaviour
                 {
                     if (this.gameObject.tag != otherg.tag || this.gameObject.tag == "Player")
                     {
-                        otherg.GetComponent<BodyMechanics>().Damage(ColDmg);
+                        otherg.GetComponent<BodyMechanics>().Damage(colDmg);
+                        otherg.GetComponent<BodyMechanics>().UpS = myUps;
                     }
                 }
             }
@@ -55,20 +62,16 @@ public class BodyMechanics : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(maxHealth - 0.1f > health)
-        {
-            isHurt = true;
-        }
         Regenerate();
-        if (maxHealth < health)
-        {
-            health = maxHealth;
-        }
         if (isPlayer)
         {
             float healthpercent = health/maxHealth;
-            maxHealth = MaxHealth[myUps.maxHealth];
+            StatUpdate();
             health = healthpercent * maxHealth;
+            if(regenCooldown > regenTimer + 0.1f)
+            {
+                regenCooldown = regenTimer;
+            }
         }
         HB.SetHealth(health,maxHealth); //set the health bar the correct values
         if(health <= 0)                 //ran out of lifepoints?
@@ -76,8 +79,19 @@ public class BodyMechanics : MonoBehaviour
             Destroy(gameObject);//die
         }
     }
+    void StatUpdate()
+    {
+        maxHealth = MaxHealth[myUps.playerStats.maxHealth];
+        regenTimer = HealthCooldown[myUps.playerStats.healthRegeneration];
+        regenSpeed = RegenSpeed[myUps.playerStats.healthRegeneration];
+        colDmg = BodyDamage[myUps.playerStats.bodyDamage];
+    }
     void Regenerate()
     {
+        if(maxHealth - 0.1f > health)
+        {
+            isHurt = true;
+        }
         if (isHurt)
         {
             if (isRecentlyHurt)
@@ -95,6 +109,10 @@ public class BodyMechanics : MonoBehaviour
         {
             isHurt = false;
             isRecentlyHurt = false;
+        }
+        if (maxHealth < health)
+        {
+            health = maxHealth;
         }
     }
     public void Damage(float dmg)
