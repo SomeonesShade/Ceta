@@ -74,7 +74,7 @@ public class ShootingMechanics : MonoBehaviour
             firePoint.rotation);
         Rigidbody2D rb = bullet.GetComponent<Rigidbody2D>();
         rb.AddForce(
-            firePoint.right * bulletForce, //make it move
+            firePoint.right * bulletForce * BulletSpeed[bulletSpeed], //make it move
             ForceMode2D.Impulse
         );
         BulletMechanics bm = bullet.GetComponent<BulletMechanics>();

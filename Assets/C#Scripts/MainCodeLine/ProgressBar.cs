@@ -36,17 +36,19 @@ public class ProgressBar : MonoBehaviour
     //AAAAAAAAAAAAAAAAAA
     public void IncrementProgress(float newP)
     {
+        int a = 0;
         //total xp - xp going to get taken
         remainingEXP = newP + (sliderValue * maxP[level]) - maxP[level];
         //target progress meanwhile is just the percentage of totalexp/exprequiredtolevel
         targetProgress = sliderValue + newP/maxP[level];
-        while(remainingEXP >= 0)
+        while(remainingEXP >= 0 && a < 1000)
         {
             level += 1;
             //remaining exp/newlevelexprequired
             targetProgress = remainingEXP/maxP[level];
             //remainingexp updated
             remainingEXP = remainingEXP - maxP[level];
+            a++;
         }
         remainingEXP += maxP[level]; //makes it the actual remaining exp
         //ishould update the slider value after it resolves gotcha

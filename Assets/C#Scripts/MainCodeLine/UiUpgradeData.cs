@@ -47,9 +47,12 @@ public class UiUpgradeData : MonoBehaviour
         Debug.Log("INVOKED");
         if (Player != null && localPoints != 0)
         {
-            UpS.playerStats.AddValue(type, 1);
-            UiUpdater(type, UpS.playerStats.IntToStat(type));
-            localPoints -= 1;
+            if(UpS.playerStats.IntToStatRead(type) < UpS.playerStats.maxCapacity)
+            {
+                UpS.playerStats.AddValue(type, 1);
+                UiUpdater(type, UpS.playerStats.IntToStatRead(type));
+                localPoints -= 1;
+            }
         }
         Check();
     }
@@ -67,18 +70,20 @@ public class UiUpgradeData : MonoBehaviour
         {
             Enable = true;
         }
-        if (prevEnb != Enable) //there was a recent change?
+        if (prevEnb != Enable || Enable == true) //there was a recent change?
         {
             for (int i = 0; i < Button.Length; i++)
             {
-                if(UpS.playerStats.maxCapacity > 6)//hardcode alert, we need a way to deal when adding points back on classchange, and knowing the max
+                if(UpS.playerStats.IntToStatRead(i) >= UpS.playerStats.maxCapacity)
                 {
                     Button[i].GetComponent<Button>().enabled = false;
                     Button[i].GetComponent<Image>().color = deactiColor;
-                    continue;
                 }
-                Button[i].GetComponent<Button>().enabled = Enable;
-                Button[i].GetComponent<Image>().color = Enable? actiColors[i] : deactiColor;
+                else
+                {
+                    Button[i].GetComponent<Button>().enabled = Enable;
+                    Button[i].GetComponent<Image>().color = Enable? actiColors[i] : deactiColor;
+                }
             }
         }
         prevEnb = Enable;

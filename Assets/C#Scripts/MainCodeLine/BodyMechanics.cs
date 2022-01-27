@@ -102,7 +102,7 @@ public class BodyMechanics : MonoBehaviour
             regenCooldown = (health < maxHealth) ? regenCooldown - Time.deltaTime : 0;
             if (regenCooldown < 0.1f)
             {
-                Heal(regenSpeed * Time.deltaTime);
+                Heal(maxHealth * regenSpeed * Time.deltaTime);
             }
         }
         if (maxHealth <= health)

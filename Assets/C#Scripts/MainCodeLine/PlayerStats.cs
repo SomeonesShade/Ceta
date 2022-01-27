@@ -20,22 +20,21 @@ public class PlayerStats : MonoBehaviour
         {
             if(i >= this.maxCapacity)
             {
-                IntToStat(a) = this.maxCapacity;
+                IntToStatModify(a) = this.maxCapacity;
             }
-            IntToStat(a) = i;
+            IntToStatModify(a) = i;
             a++;
         }
     }
     public void AddValue(int type, int amount)
     {
-        IntToStat(type) += amount;
-        if(IntToStat(type) >= maxCapacity)
+        if(IntToStatRead(type) < this.maxCapacity)
         {
-            IntToStat(type) = maxCapacity;
+            IntToStatModify(type) += amount;
         }
     }
 
-    public ref int IntToStat(int type)
+    public ref int IntToStatModify(int type)
     {
         switch (type)
         {
@@ -57,6 +56,30 @@ public class PlayerStats : MonoBehaviour
                 return ref this.movementSpeed;
             default:
                 return ref this.healthRegeneration;
+        }
+    }
+    public int IntToStatRead(int type)
+    {
+        switch (type)
+        {
+            case 0:
+                return this.healthRegeneration;
+            case 1:
+                return this.maxHealth;
+            case 2:
+                return this.bodyDamage;
+            case 3:
+                return this.bulletSpeed;
+            case 4:
+                return this.pierce;
+            case 5:
+                return this.damage;
+            case 6:
+                return this.reload;
+            case 7:
+                return this.movementSpeed;
+            default:
+                return this.healthRegeneration;
         }
     }
     
