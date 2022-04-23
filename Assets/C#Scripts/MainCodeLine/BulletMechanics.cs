@@ -7,7 +7,7 @@ using UnityEngine;
 //Assigns which Ups for the affected Body Mechanics to give EXP
 public class BulletMechanics : MonoBehaviour
 {
-    public float delayHit, lifetime, impactForce, damage, pierce;
+    public float delayHit, lifetime, impactForce, damage, pierce, speed;
     public UpgradeSystem UpS;
 
     private BodyMechanics BM;
@@ -28,7 +28,7 @@ public class BulletMechanics : MonoBehaviour
             Destroy(gameObject);
         }
     }
-    private void OnTriggerEnter2D(Collider2D other) 
+    void OnTriggerEnter2D(Collider2D other) 
     {
         if (other.tag != "Wall")
         {//basically (our)bullet, player, and the barrel
@@ -55,5 +55,27 @@ public class BulletMechanics : MonoBehaviour
         Rb.AddForce(
             tr.right * impactForce,
             ForceMode2D.Impulse);
+    }
+
+    Vector2 mouseLocation, relPos;
+    float angle;
+    const float radiusOfRest = 0.5f, acceleration = 1.1f;
+    void Homing()
+    {
+        mouseLocation = Camera.main.ScreenToWorldPoint(Input.mousePosition);//locate the mouse
+        relPos = mouseLocation - new Vector2(tr.position.x, tr.position.y); //relative distance from the mousetoplayer
+        angle = Mathf.Atan2(relPos.y, relPos.x) * Mathf.Rad2Deg;            //no idea, just converts the vector into an angle
+        tr.rotation = Quaternion.Euler(0,0,angle);                          //then converts it into a quaternion and sets the rotation!
+        if(relPos.magnitude > radiusOfRest)
+        {
+            if(rb.velocity.magnitude < speed)
+            {
+                rb.velocity *= acceleration;
+            }
+            if(rb.velocity.magnitude >= speed)
+            {
+                rb.velocity = tr.right * speed;
+            }
+        }
     }
 }

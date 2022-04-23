@@ -17,6 +17,12 @@ public class EnemyAI : MonoBehaviour
     {
         
     }
+    const float smallForce = 0.0001f;
+    void BrownianMotion()
+    {
+        rb.AddForce(new Vector2(Random.Range(-smallForce,smallForce),Random.Range(-smallForce,smallForce)));
+    }
+
     void Rampage()
     {
         

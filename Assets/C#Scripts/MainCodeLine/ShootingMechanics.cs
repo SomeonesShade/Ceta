@@ -9,11 +9,10 @@ public class ShootingMechanics : MonoBehaviour
 {
     public Transform firePoint;
     public GameObject bulletPrefab;
+    public ShootingMechanics tortchReceiver;
     public UpgradeSystem UpS;
-    //absolutehell
-    [Header("Variables")]
-    public float bulletForce;  //stronger gun and reload time essentially
-    public float delay;
+    public bool isGiveTortch, hasTortch, isOnHold; //If you have a tortch you can SHOOT
+    
     [Header("BulletProperties")]
     public float bulletDelayHit; //some of the other statss
     public float bulletLifetime;
@@ -33,7 +32,8 @@ public class ShootingMechanics : MonoBehaviour
 
     int damage, pierce, bulletSpeed, reload;
     
-    private bool wait;
+    bool isReadyToFire;
+    float timer;
     void Awake() 
     {
         Data_NormalStats DataStats;
@@ -46,16 +46,45 @@ public class ShootingMechanics : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        wait = false;
+        timer = 0;
+        isOnHold = false;
     }
 
     // Update is called once per frame
     void Update()
     {
         StatUpdate();
-        if(Input.GetButton("Fire1") && wait == false)
+        FireCheck();
+    }
+    void FireCheck()
+    {
+        if(Input.GetKeyDown(KeyCode.E))
         {
-            StartCoroutine(Delay(delay * Reload[reload]));
+            isOnHold = !isOnHold;
+        }
+        
+        if(!isReadyToFire && hasTortch)
+        {
+            Clock();
+        }
+        if((Input.GetButton("Fire1") || isOnHold) && isReadyToFire)
+        {
+            Shoot();
+            isReadyToFire = false;
+            if(isGiveTortch)
+            {
+                hasTortch = false;
+                tortchReceiver.hasTortch = true;
+            }
+        }
+    }
+    void Clock()
+    {
+        timer -= Time.deltaTime;
+        if(timer <= 0)
+        {
+            timer = reloadM * Reload[reload];
+            isReadyToFire = true;
         }
     }
     void StatUpdate()
@@ -74,22 +103,20 @@ public class ShootingMechanics : MonoBehaviour
             firePoint.rotation);
         Rigidbody2D rb = bullet.GetComponent<Rigidbody2D>();
         rb.AddForce(
-            firePoint.right * bulletForce * BulletSpeed[bulletSpeed], //make it move
+            firePoint.right * bulletSpeedM * BulletSpeed[bulletSpeed], //make it move
             ForceMode2D.Impulse
         );
+        BulletSetup(bullet);
+    }
+    void BulletSetup(GameObject bullet)
+    {
         BulletMechanics bm = bullet.GetComponent<BulletMechanics>();
-        bm.damage = Damage[damage]; //set everythinggggg
+        bm.damage = damageM * Damage[damage]; //set everythinggggg
         bm.delayHit = bulletDelayHit;
-        bm.pierce = Pierce[pierce];
+        bm.pierce = pierceM * Pierce[pierce];
         bm.lifetime = bulletLifetime;
         bm.impactForce = bulletImpactForce;
         bm.UpS = UpS;
-    }
-    IEnumerator Delay(float dy)
-    {
-        Shoot(); //reload time lel
-        wait = true;
-        yield return new WaitForSeconds(dy);
-        wait = false;
+        bm.speed = BulletSpeed[bulletSpeed];
     }
 }
