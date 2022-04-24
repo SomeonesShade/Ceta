@@ -1,7 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+//
+//This needs a revamp :/ might be too overkill...
 public class ClassDisplay : MonoBehaviour
 {
     public GameObject prefabButton;

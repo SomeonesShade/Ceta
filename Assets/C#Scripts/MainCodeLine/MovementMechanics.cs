@@ -59,6 +59,7 @@ public class MovementMechanics : MonoBehaviour
         {
             currentMultiplier.y = speedMultiplier;
         }
+        //i should not slow it down immediately, maybe *= 0.1f, or -= 1 idk;
         if (movement.x != prevMovement.x) //did we change direction?
         {
             currentMultiplier.x = 0f; //if so STOP lel
