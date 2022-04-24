@@ -25,7 +25,7 @@ public class CollisionMechanics : MonoBehaviour
                 {
                     if (this.gameObject.tag != otherg.tag || this.gameObject.tag == "Player")
                     {
-                        otherg.GetComponent<BodyMechanics>().Damage(colDmg);
+                        otherg.GetComponent<BodyMechanics>().DamageCall(colDmg);
                     }
                 }
             }

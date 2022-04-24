@@ -1,10 +1,7 @@
 {
-    "name": "0EnvironmentalCodeLine",
+    "name": "GlobalAssembly",
     "rootNamespace": "",
-    "references": [
-        "GUID:efdc34c6c0db0ea40929f82fecee8ac3",
-        "GUID:38673c0cc77287344958f905629ca441"
-    ],
+    "references": [],
     "includePlatforms": [],
     "excludePlatforms": [],
     "allowUnsafeCode": false,

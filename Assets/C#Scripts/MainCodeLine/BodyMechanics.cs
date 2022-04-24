@@ -4,10 +4,10 @@ using UnityEngine;
 //Related: UI<HealthBar>, DATA, and UpgradeSystem
 //Handles All Player and Object Health Systems
 //Needs information on the Upgrade System's current stat for Health, and from DATA for specfic stat changes
-public class BodyMechanics : MonoBehaviour
+public class BodyMechanics : HealthMechanics
 {
     public bool isPlayer;
-    public float maxHealth, health, eXP, colDmg, regenTimer, regenSpeed;
+    public float eXP, colDmg, regenTimer, regenSpeed;
     public UpgradeSystem UpS;
     public HealthBar HB;
     public float[] MaxHealth, HealthCooldown, RegenSpeed, BodyDamage;
@@ -51,7 +51,7 @@ public class BodyMechanics : MonoBehaviour
                 {
                     if (this.gameObject.tag != otherg.tag || this.gameObject.tag == "Player")
                     {
-                        otherg.GetComponent<BodyMechanics>().Damage(colDmg);
+                        otherg.GetComponent<BodyMechanics>().DamageCall(colDmg);
                         otherg.GetComponent<BodyMechanics>().UpS = myUps;
                     }
                 }
@@ -62,7 +62,7 @@ public class BodyMechanics : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Regenerate();
+        RegenCheck();
         if (isPlayer)
         {
             float healthpercent = health/maxHealth;
@@ -86,7 +86,7 @@ public class BodyMechanics : MonoBehaviour
         regenSpeed = RegenSpeed[myUps.playerStats.healthRegeneration];
         colDmg = BodyDamage[myUps.playerStats.bodyDamage];
     }
-    void Regenerate()
+    void RegenCheck()
     {
         if(maxHealth - 0.1f > health)
         {
@@ -102,7 +102,7 @@ public class BodyMechanics : MonoBehaviour
             regenCooldown = (health < maxHealth) ? regenCooldown - Time.deltaTime : 0;
             if (regenCooldown < 0.1f)
             {
-                Heal(maxHealth * regenSpeed * Time.deltaTime);
+                Regenerate();
             }
         }
         if (maxHealth <= health)
@@ -115,16 +115,20 @@ public class BodyMechanics : MonoBehaviour
             health = maxHealth;
         }
     }
-    public void Damage(float dmg)
+    void Regenerate()
     {
-        health -= dmg;
+        HealCall(maxHealth * regenSpeed * Time.deltaTime);
+    }
+    public void DamageCall(float dmg)
+    {
+        Damage(dmg);
         HB.StartCoroutine(HB.Activate(health,maxHealth,isPlayer));
         isHurt = true;
         isRecentlyHurt = true;
     }
-    public void Heal(float hl)
+    public void HealCall(float hl)
     {
-        health += hl;
+        Heal(hl);
     }
     void OnDestroy()
     {

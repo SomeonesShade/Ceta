@@ -4,22 +4,22 @@ using UnityEngine;
 
 public class HealthMechanics : MonoBehaviour
 {
-    HealthMechanics()
+    public HealthMechanics()
     {
         VariableReset();
     }
-    HealthMechanics(int inHealth, int inMaxHealth)
+    public HealthMechanics(int inHealth, int inMaxHealth)
     {
         health = inHealth;
         maxHealth = inMaxHealth;
     }
-    HealthMechanics(int inMaxHealth)
+    public HealthMechanics(int inMaxHealth)
     {
         maxHealth = inMaxHealth;
         health = inMaxHealth;
     }
-    public float health{get;private set;}
-    public float maxHealth{get;private set;}
+    public float health;//{get;private set;}
+    public float maxHealth;
     void VariableReset()
     {
         health = 1;
@@ -40,12 +40,11 @@ public class HealthMechanics : MonoBehaviour
         health = proportion * maxHealth;
     }
     //You can change your mind on if this should be a class or an interface
-    interface IRegeneration
+    public interface IRegeneration
     {
-        void Regenerate(float regenAmount, float waitTimer);
-        void RegenFunction(float parameter);//Gets Refered by Regenerate, how the regen behavior works
+        void Regenerate();
     }
-    interface ICollision
+    public interface ICollision
     {
         void CollideCheck();
     }
