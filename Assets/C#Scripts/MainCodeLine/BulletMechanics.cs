@@ -39,7 +39,7 @@ public class BulletMechanics : MonoBehaviour
                 {
                     BM = other.GetComponent<BodyMechanics>(); //get that
                     BM.UpS = UpS;                             //set ther ups to the player to give exp
-                    BM.DamageCall(damage);                        //deal damage
+                    BM.Damage(damage);                        //deal damage
                 }
                 rb = other.GetComponent<Rigidbody2D>();       //to enact push lel
                 Push(rb);

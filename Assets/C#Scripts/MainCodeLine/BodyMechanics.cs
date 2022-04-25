@@ -4,10 +4,10 @@ using UnityEngine;
 //Related: UI<HealthBar>, DATA, and UpgradeSystem
 //Handles All Player and Object Health Systems
 //Needs information on the Upgrade System's current stat for Health, and from DATA for specfic stat changes
-public class BodyMechanics : HealthMechanics
+public class BodyMechanics : MonoBehaviour, Interfaces.IHealth
 {
     public bool isPlayer;
-    public float eXP, colDmg, regenTimer, regenSpeed;
+    public float maxHealth, health, eXP, colDmg, regenTimer, regenSpeed;
     public UpgradeSystem UpS;
     public HealthBar HB;
     public float[] MaxHealth, HealthCooldown, RegenSpeed, BodyDamage;
@@ -51,7 +51,7 @@ public class BodyMechanics : HealthMechanics
                 {
                     if (this.gameObject.tag != otherg.tag || this.gameObject.tag == "Player")
                     {
-                        otherg.GetComponent<BodyMechanics>().DamageCall(colDmg);
+                        otherg.GetComponent<BodyMechanics>().Damage(colDmg);
                         otherg.GetComponent<BodyMechanics>().UpS = myUps;
                     }
                 }
@@ -62,7 +62,7 @@ public class BodyMechanics : HealthMechanics
     // Update is called once per frame
     void Update()
     {
-        RegenCheck();
+        Regenerate();
         if (isPlayer)
         {
             float healthpercent = health/maxHealth;
@@ -86,7 +86,7 @@ public class BodyMechanics : HealthMechanics
         regenSpeed = RegenSpeed[myUps.playerStats.healthRegeneration];
         colDmg = BodyDamage[myUps.playerStats.bodyDamage];
     }
-    void RegenCheck()
+    void Regenerate()
     {
         if(maxHealth - 0.1f > health)
         {
@@ -102,7 +102,7 @@ public class BodyMechanics : HealthMechanics
             regenCooldown = (health < maxHealth) ? regenCooldown - Time.deltaTime : 0;
             if (regenCooldown < 0.1f)
             {
-                Regenerate();
+                Heal(maxHealth * regenSpeed * Time.deltaTime);
             }
         }
         if (maxHealth <= health)
@@ -115,20 +115,16 @@ public class BodyMechanics : HealthMechanics
             health = maxHealth;
         }
     }
-    void Regenerate()
+    public void Damage(float dmg)
     {
-        HealCall(maxHealth * regenSpeed * Time.deltaTime);
-    }
-    public void DamageCall(float dmg)
-    {
-        Damage(dmg);
+        health -= dmg;
         HB.StartCoroutine(HB.Activate(health,maxHealth,isPlayer));
         isHurt = true;
         isRecentlyHurt = true;
     }
-    public void HealCall(float hl)
+    public void Heal(float hl)
     {
-        Heal(hl);
+        health += hl;
     }
     void OnDestroy()
     {

@@ -18,7 +18,7 @@ public class HealthMechanics : MonoBehaviour
         maxHealth = inMaxHealth;
         health = inMaxHealth;
     }
-    public float health;//{get;private set;}
+    public float health;
     public float maxHealth;
     void VariableReset()
     {
@@ -32,6 +32,10 @@ public class HealthMechanics : MonoBehaviour
     public void Damage(float am)
     {
         health = health - am;
+    }
+    public void HealthSet(float newHealth)
+    {
+        health = (newHealth > maxHealth - 0.01f)? maxHealth : newHealth;
     }
     public void MaxHealthSet(float newMaxHealth)
     {
