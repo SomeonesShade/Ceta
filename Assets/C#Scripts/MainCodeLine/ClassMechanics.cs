@@ -23,6 +23,7 @@ public class ClassMechanics : MonoBehaviour
         {
             SM[i].UpS = UpS;
         }
+        UpS.nextClassUpgrades = nextUpgrades;
     }
     // Update is called once per frame
     void Update()

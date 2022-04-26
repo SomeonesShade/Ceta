@@ -10,7 +10,7 @@ public class DATA : ScriptableObject
     public class Data_ClassBranches
     {
         [SerializeField]
-        public GameObject[] Prefabsl;
+        public GameObject[] Prefabs;
     }
     [SerializeField]
     public class Data_NormalStats

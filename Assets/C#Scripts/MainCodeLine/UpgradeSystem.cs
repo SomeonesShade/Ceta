@@ -8,11 +8,13 @@ public class UpgradeSystem : MonoBehaviour
 {
     //Unused ATM, maybe later after dealing with the exp 
     public int[] AddPoint;
+    public int[] AddClassPoint;
     public float[] expToLevelUp;
     public PlayerStats playerStats; 
-    public int level, upgradePoints;
+    public int level, upgradePoints, classPoints;
     public float eXP;
     public GameObject ProgressBar;
+    public GameObject[] nextClassUpgrades;
     ProgressBar pb;
     int prevLevel, transmit;
     float prevEXP, remainingEXP;
@@ -36,6 +38,16 @@ public class UpgradeSystem : MonoBehaviour
         upgradePoints = 0;
         return transmit;
     }
+    public int ClassTransmit()
+    {
+        transmit = classPoints;
+        classPoints = 0;
+        return transmit;
+    }
+    public void ClassUpdate(GameObject g)
+    {
+        this.gameObject.GetComponent<ClassChange>().ChangeClass(g);
+    }
     void Update()
     {
         if (eXP > prevEXP) //dont worry this is calculated as total exp
@@ -50,6 +62,7 @@ public class UpgradeSystem : MonoBehaviour
         for (int i = prevLevel; i < level; i++)
         {
             upgradePoints += AddPoint[i]; //loop for every new level gained..
+            classPoints += AddClassPoint[i];
         }
         prevLevel = level; //reset
     }

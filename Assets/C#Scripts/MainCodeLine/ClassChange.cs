@@ -40,4 +40,15 @@ public class ClassChange : MonoBehaviour
         childCM.Parent = this.gameObject;
         childCM.UpS = this.gameObject.GetComponent<UpgradeSystem>();
     }
+    public void ChangeClass(GameObject upgrade)
+    {
+        Destroy(Child);
+        Child = Instantiate(upgrade,
+            Vector2.zero,
+            new Quaternion(0,0,0,0));
+        Child.GetComponent<Transform>().SetParent(this.transform,false);
+        ClassMechanics childCM = Child.GetComponent<ClassMechanics>();
+        childCM.Parent = this.gameObject;
+        childCM.UpS = this.gameObject.GetComponent<UpgradeSystem>();
+    }
 }

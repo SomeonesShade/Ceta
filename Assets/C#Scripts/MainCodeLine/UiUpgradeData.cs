@@ -12,9 +12,11 @@ public class UiUpgradeData : MonoBehaviour
     bool Enable;
     public GameObject[] Button; //buttons affected
     public GameObject[] ButtonUI;
+    public GameObject[] classUpgrades;
+    public ClassDisplay CD;
     UpgradeSystem UpS;
-    public int localPoints;
-    bool prevEnb;
+    public int localPoints, localClassPoints;
+    bool prevEnb, currentlyDisplaying;
     public Color[] actiColors;
     public Color deactiColor;
     int prevPoints;
@@ -27,6 +29,8 @@ public class UiUpgradeData : MonoBehaviour
         prevEnb = true;
         prevPoints = localPoints;
         Check();
+        currentlyDisplaying = false;
+        CD.UUD =  this.gameObject.GetComponent<UiUpgradeData>();
     }
 
     // Update is called once per frame
@@ -35,16 +39,25 @@ public class UiUpgradeData : MonoBehaviour
         if (Player != null) //hey im not dead
         {
             localPoints += UpS.Transmit();
+            localClassPoints += UpS.ClassTransmit();
+            classUpgrades = UpS.nextClassUpgrades;
         }
         if (prevPoints != localPoints) //if there is a change
         {
             Check();
             prevPoints = localPoints;
         }
+        if (localClassPoints > 0)
+        {
+            if (!currentlyDisplaying)
+            {
+                DisplayClass();
+                Debug.Log("Sending Display, ShouldDisplay is: " + currentlyDisplaying);
+            }
+        }
     }
     public void Stat(int type)
     {
-        Debug.Log("INVOKED");
         if (Player != null && localPoints != 0)
         {
             if(UpS.playerStats.IntToStatRead(type) < UpS.playerStats.maxCapacity)
@@ -88,6 +101,18 @@ public class UiUpgradeData : MonoBehaviour
         }
         prevEnb = Enable;
         
+    }
+    void DisplayClass()
+    {
+        currentlyDisplaying = true;
+        CD.DisplayNow(classUpgrades);
+    }
+    public void ChangeClass(int classNumber)
+    {
+        Debug.Log("Change Class");
+        UpS.ClassUpdate(classUpgrades[classNumber]);
+        localClassPoints--;
+        currentlyDisplaying = false;
     }
     public void Reset(GameObject player) //soulstuff reseting
     {
