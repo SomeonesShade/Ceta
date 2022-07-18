@@ -4,7 +4,7 @@ using UnityEngine;
 //Related: UI<HealthBar>, DATA, and UpgradeSystem
 //Handles All Player and Object Health Systems
 //Needs information on the Upgrade System's current stat for Health, and from DATA for specfic stat changes
-public class BodyMechanics : MonoBehaviour, Interfaces.IHealth
+public class BodyMechanics : MonoBehaviour
 {
     public bool isPlayer;
     public float maxHealth, health, eXP, colDmg, regenTimer, regenSpeed;

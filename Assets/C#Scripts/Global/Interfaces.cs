@@ -6,19 +6,20 @@ public static class Interfaces
 {
     public interface IHealth
     {
+        float Health{set; get;}
         void Heal(float amount);
         void Damage(float amount);
     }
     public interface IRegeneration : IHealth
     {
-        float regenAmount{get; set;}
-        float regenCooldown{get; set;}
+        float RegenAmount{get; set;}
+        float RegenCooldown{get; set;}
         void RegenCheck();
         void Regenerate();
     }
     public interface ICollision : IHealth
     {
-        float collisionDamage{get; set;}
+        float CollisionDamage{get; set;}
         void CollideCheck();
     }
 }
