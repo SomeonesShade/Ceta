@@ -17,9 +17,9 @@ public static class Interfaces
         void RegenCheck();
         void Regenerate();
     }
-    public interface ICollision : IHealth
+    public interface ICollision
     {
         float CollisionDamage{get; set;}
-        void CollideCheck();
+        void CollideCheck(GameObject gameObject);
     }
 }

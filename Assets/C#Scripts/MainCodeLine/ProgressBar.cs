@@ -7,15 +7,27 @@ using UnityEngine.UI;
 //This requires intimate connection with Ups as it needs the Level and EXP to function
 public class ProgressBar : MonoBehaviour
 {
-    public float timeToLevel;
-    public int level,
-        displayedLevel;
+    public int Level
+        {private get{return level;} set{level = value;}}
+    public int DisplayedLevel
+        {get{return displayedLevel;} private set{displayedLevel = (value > level)? level : value;}}
+    public float TimeToLevel
+        {private get{return timeToLevel;} set{timeToLevel = (value < 0.0001f)? 0.0002f : value;}}
+    [SerializeField] int level;
+    [SerializeField] int displayedLevel;
+    [SerializeField] float timeToLevel;
     Slider slider; //the GUI affected
     float targetSliderValue; //remaining_exp/how_many_exp_needed
+    //Updates if a value is changed in the inspector or loading in
+    void OnValidate()
+    {
+        Level = level;
+        DisplayedLevel = displayedLevel;
+    }
     void Awake()
     {
         slider = gameObject.GetComponent<Slider>();
-        displayedLevel = level;
+        DisplayedLevel = Level;
     }
 
     void Start()
@@ -30,12 +42,12 @@ public class ProgressBar : MonoBehaviour
     public void ReportVariables(float rEXP, float maxPoint, int currentLevel)
     {
         targetSliderValue = rEXP/maxPoint;
-        level = currentLevel;
+        Level = currentLevel;
     }
     private void Increment()
     {
         //if a level up is needed
-        if(displayedLevel != level)
+        if(DisplayedLevel != Level)
         {
             //are we not overshooting?
             if (slider.value + Time.deltaTime < 1)
@@ -45,15 +57,15 @@ public class ProgressBar : MonoBehaviour
             else// otherwise update the levels
             {
                 slider.value = 0;
-                displayedLevel += 1;
+                DisplayedLevel += 1;
             }
         }
         //otherwise slide the thing...
         else
         {//Does it not Overshoot?
-            if (slider.value + targetSliderValue/timeToLevel * Time.deltaTime < targetSliderValue)
+            if (slider.value + targetSliderValue/TimeToLevel * Time.deltaTime < targetSliderValue)
             {
-                slider.value += targetSliderValue/timeToLevel * Time.deltaTime;
+                slider.value += targetSliderValue/TimeToLevel * Time.deltaTime;
             }
             else // otherwise just set the same
             {
@@ -64,8 +76,8 @@ public class ProgressBar : MonoBehaviour
     public void Reset()
     {
         targetSliderValue = 0;
-        level = 1;
-        displayedLevel = 1;
+        Level = 1;
+        DisplayedLevel = 1;
         slider.value = 0;
     }
 }

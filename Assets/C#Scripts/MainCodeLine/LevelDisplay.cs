@@ -18,6 +18,6 @@ public class LevelDisplay : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        tmp.text = "Level: " + pb.displayedLevel;
+        tmp.text = "Level: " + pb.DisplayedLevel;
     }
 }

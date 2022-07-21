@@ -1,0 +1,52 @@
+Fields: camelCase
+float thisVariable;
+public helloPeople;
+
+Properties: PascalCase
+public float ThisVariable
+    {get{return thisVariable;} set{thisVariable = value;}}
+
+Brackets: like this (with some exceptions)
+{
+
+}
+
+Classes, Functions: PascalCase
+    class ObjectivePerson
+    {
+        public void BecomeObjective()
+        {
+            //Impossible
+        }
+    }
+
+Creating Classes: like this
+Vector2 ifSmall = new Vector2(0,1);
+Vector3 ifBig = new Vector3(
+    tr.x + 10,
+    Mathf.Abs(other.transform.position.y),
+    10917);
+
+If/Else, Loops: keyword lol
+if(true)
+{
+    while(false)
+    {
+        for(int i; i < 20; i++)
+        {
+
+        }
+    }
+}
+
+Interfaces: I + PascalCase
+interface IEarthPeople
+{
+    public void Eat(Food food); 
+/*
+    {
+        food.Destroy();
+    }
+*/
+    //Doesnt support default implementation in target framework : c
+}

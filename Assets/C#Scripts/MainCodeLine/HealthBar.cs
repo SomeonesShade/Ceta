@@ -20,7 +20,7 @@ public class HealthBar : MonoBehaviour
         isActive = false;
         tm = GetComponent<Transform>();
         tm.SetParent(null); //im not your child now hehe
-    }
+    }//Because dont want to rotate
 
     // Update is called once per frame
     void Update()
