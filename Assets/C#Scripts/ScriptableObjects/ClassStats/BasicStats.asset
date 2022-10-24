@@ -1,0 +1,103 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3865d0e871b20a146a0dc389968956a9, type: 3}
+  m_Name: BasicStats
+  m_EditorClassIdentifier: 
+  RegenerationCooldown:
+  - 100
+  - 90
+  - 75
+  - 60
+  - 40
+  - 20
+  - 10
+  - 0
+  RegenerationSpeed:
+  - 0.005
+  - 0.01
+  - 0.015
+  - 0.02
+  - 0.025
+  - 0.03
+  - 0.04
+  - 0.05
+  UDelayedDamage: []
+  MaxHealth:
+  - 20
+  - 30
+  - 40
+  - 50
+  - 60
+  - 70
+  - 80
+  - 90
+  ULastInvincibility: []
+  CollisionDamage:
+  - 1
+  - 2
+  - 4
+  - 8
+  - 16
+  - 32
+  - 64
+  - 128
+  UResistance: []
+  OnFireForce:
+  - 1
+  - 2
+  - 2.5
+  - 3
+  - 3.75
+  - 4.5
+  - 5
+  - 7
+  UBulletAcceleration: []
+  Pierce:
+  - 1
+  - 2
+  - 3
+  - 4
+  - 5
+  - 6
+  - 7
+  - 8
+  UBulletInvulnerability: []
+  BulletDamage:
+  - 1
+  - 2
+  - 3
+  - 5
+  - 7
+  - 9
+  - 10
+  - 12
+  USplashDamage: []
+  ShootCooldown:
+  - 3
+  - 2.5
+  - 2
+  - 1.5
+  - 1
+  - 0.9
+  - 0.75
+  - 0.5
+  UBurstSalvo: []
+  MovementSpeed:
+  - 2
+  - 3
+  - 4
+  - 5
+  - 7
+  - 9
+  - 12
+  - 15
+  UMovementAcceleration: []

@@ -1,0 +1,11 @@
+TODO
+
+Refactor/Rewrite:
+Set PlayerData/Array Based on Scriptable Objects
+Lower The Dependence on UPS
+Spilt UPS into diffrent scripts for BodyMechanics as an Example
+UI system....
+
+Other:
+HealthSytem Modularized (For easy boss, player, normal, and ai)
+Fix ClassUpdate

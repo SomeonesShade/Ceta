@@ -1,6 +1,8 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+
+//Depreciated
 //Related: SoulSystem
 //Notifies When the Player Dies and Positions the Ghost To Be in Position with the Player
 public class SoulSetter : MonoBehaviour
@@ -26,7 +28,7 @@ public class SoulSetter : MonoBehaviour
     {
         if(Ghost != null) //send the mesage that this is dead
         {
-            Ghost.GetComponent<SoulSystem>().isDestroyed = true;
+//            Ghost.GetComponent<SoulSystem>().isDestroyed = true;
         }
     }
 }

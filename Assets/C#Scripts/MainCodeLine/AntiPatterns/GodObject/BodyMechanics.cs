@@ -6,12 +6,14 @@ using UnityEngine;
 //Needs information on the Upgrade System's current stat for Health, and from DATA for specfic stat changes
 public class BodyMechanics : MonoBehaviour
 {
+    public SO_Data_ClassStatUpdater Stats;
     public bool isPlayer;
     public float maxHealth, health, eXP, colDmg, regenTimer, regenSpeed;
     public UpgradeSystem UpS;
     public HealthBar HB;
     public float[] MaxHealth, HealthCooldown, RegenSpeed, BodyDamage;
     UpgradeSystem myUps;
+    SO_Data_NormalStats CurrentStats;
     bool isHurt, isRecentlyHurt, isRegenerating;
     float regenCooldown;
     // Start is called before the first frame update
@@ -19,10 +21,11 @@ public class BodyMechanics : MonoBehaviour
     {
         if (isPlayer)
         {
-            MaxHealth = GameObject.FindGameObjectWithTag("DATA").GetComponent<Data_NormalStats>().MaxHealth;
-            HealthCooldown = GameObject.FindGameObjectWithTag("DATA").GetComponent<Data_NormalStats>().RegenerationCooldown;
-            RegenSpeed = GameObject.FindGameObjectWithTag("DATA").GetComponent<Data_NormalStats>().RegenerationSpeed;
-            BodyDamage = GameObject.FindGameObjectWithTag("DATA").GetComponent<Data_NormalStats>().CollisionDamage;
+            CurrentStats = Stats.ClassStats[Stats.currentClass];
+            MaxHealth = CurrentStats.MaxHealth;
+            HealthCooldown = CurrentStats.RegenerationCooldown;
+            RegenSpeed = CurrentStats.RegenerationSpeed;
+            BodyDamage = CurrentStats.CollisionDamage;
             myUps = this.gameObject.GetComponent<UpgradeSystem>();
             maxHealth = MaxHealth[myUps.playerStats.maxHealth];
             regenTimer = HealthCooldown[myUps.playerStats.healthRegeneration];

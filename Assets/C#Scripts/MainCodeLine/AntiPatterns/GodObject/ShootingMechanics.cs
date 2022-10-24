@@ -7,6 +7,8 @@ using UnityEngine;
 //Assigns Properties to the bullet, and Determines how the Gun works
 public class ShootingMechanics : MonoBehaviour
 {
+    public SO_Data_ClassStatUpdater Stats;
+    SO_Data_NormalStats CurrentStats;
     public Transform firePoint;
     public GameObject bulletPrefab;
     public ShootingMechanics tortchReceiver;
@@ -36,12 +38,11 @@ public class ShootingMechanics : MonoBehaviour
     float timer;
     void Awake() 
     {
-        Data_NormalStats DataStats;
-        DataStats = GameObject.FindGameObjectWithTag("DATA").GetComponent<Data_NormalStats>();
-        Damage = DataStats.BulletDamage;
-        Pierce = DataStats.Pierce;
-        BulletSpeed = DataStats.OnFireForce;
-        Reload = DataStats.ShootCooldown;
+        CurrentStats = Stats.ClassStats[Stats.currentClass];
+        Damage = CurrentStats.BulletDamage;
+        Pierce = CurrentStats.Pierce;
+        BulletSpeed = CurrentStats.OnFireForce;
+        Reload = CurrentStats.ShootCooldown;
     }
     // Start is called before the first frame update
     void Start()

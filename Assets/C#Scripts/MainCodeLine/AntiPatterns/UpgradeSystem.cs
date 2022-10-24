@@ -10,7 +10,7 @@ public class UpgradeSystem : MonoBehaviour
     public int[] AddPoint;
     public int[] AddClassPoint;
     public float[] expToLevelUp;
-    public PlayerStats playerStats; 
+    public SO_PlayerStats playerStats; 
     public int level, upgradePoints, classPoints;
     public float eXP;
     public GameObject ProgressBar;

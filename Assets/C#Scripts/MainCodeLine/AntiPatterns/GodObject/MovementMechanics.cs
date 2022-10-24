@@ -6,11 +6,13 @@ using UnityEngine;
 //This Should Not be SelfContained, we Need the UPS and DATA for how to change Speed
 public class MovementMechanics : MonoBehaviour
 {
+    public SO_Data_ClassStatUpdater Stats;
     Rigidbody2D rb;
     Vector2 movement;
     public float speedMultiplier;
     public float timeToAccelerate;
     public float[] MovementSpeed;
+    SO_Data_NormalStats CurrentStats;
     UpgradeSystem UpS;
     int movementspeed;
     Vector2 currentMultiplier;
@@ -19,9 +21,8 @@ public class MovementMechanics : MonoBehaviour
     // Start is called before the first frame update
     void Awake()
     {
-        Data_NormalStats DataStats;
-        DataStats = GameObject.FindGameObjectWithTag("DATA").GetComponent<Data_NormalStats>();
-        MovementSpeed = DataStats.MovementSpeed;
+        CurrentStats = Stats.ClassStats[Stats.currentClass];
+        MovementSpeed = CurrentStats.MovementSpeed;
         UpS = GetComponent<UpgradeSystem>();
     }
     void Start()

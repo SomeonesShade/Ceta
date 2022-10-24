@@ -1,8 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-[SerializeField]
-public class PlayerStats : MonoBehaviour
+
+[CreateAssetMenu(fileName = "PlayerStats", menuName = "ScriptableObjects/PlayerStats")]
+public class SO_PlayerStats : ScriptableObject
 {
     public int healthRegeneration,
         maxHealth,

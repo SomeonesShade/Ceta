@@ -9,18 +9,24 @@ public class SoulSystem : MonoBehaviour
 {
     public bool isDestroyed;
     public GameObject playerPrefab;
-    public GameObject Ghost;
+//    public GameObject Ghost;
+    public GameObject child;
     public GameObject ProgressBar;
     public GameObject UpgradeSet;
     
     private Transform tr;
+    
     private ProgressBar PB;
     
-    
+    void Awake()
+    {
+        tr = this.gameObject.transform;
+        SetChild(tr.GetChild(0).gameObject);
+        child.transform.SetParent(null);
+    }
     // Start is called before the first frame update
     void Start()
     {
-        tr = GetComponent<Transform>();
         ProgressBar = GameObject.FindGameObjectWithTag("ProgressBar");
     }
 
@@ -35,6 +41,10 @@ public class SoulSystem : MonoBehaviour
         {
             OnRespawn(); //same
         }
+        else
+        {
+            isDestroyed = child == null;
+        }
     }
     private void Restart()
     {
@@ -48,9 +58,14 @@ public class SoulSystem : MonoBehaviour
             tr.position,
             tr.rotation);
         UpgradeSet.GetComponent<UiUpgradeData>().Reset(Player); //reset the upgrade data
-        Player.GetComponent<SoulSetter>().Ghost = Ghost; //set the player to this
+        SetChild(Player);
+//        Player.GetComponent<SoulSetter>().Ghost = Ghost; //set the player to this
         PB = ProgressBar.GetComponent<ProgressBar>();
         PB.Reset(); //set the progress bar
         Player.GetComponent<UpgradeSystem>().ProgressBar = ProgressBar; //aslo set the player to that
+    }
+    void SetChild(GameObject child)
+    {
+        this.child = child;
     }
 }
